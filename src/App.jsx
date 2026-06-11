@@ -958,7 +958,7 @@ const CSS = `
   background: #0B0B0B; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
-.pf-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 260ms ease; }
+.pf-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 260ms ease; }
 
 @media (hover:hover) {
   .pf-tile:hover { border-color: rgba(255,255,255,0.6); }
