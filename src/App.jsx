@@ -68,7 +68,6 @@ const SECTORS = [
   { id: "deeptech", label: "DEEP TECH" },
   { id: "education", label: "EDUCATION" },
   { id: "finance", label: "COMMERCE & IMPACT" },
-  { id: "cities", label: "CITIES & PLACE" },
 ];
 
 /* name, sector, v(ision), i(mpact), b(enefit), s(ignal), p(belief), description, url, wiki title */
@@ -196,13 +195,6 @@ const ENTRIES = [
   E("VEJA", "finance", 7.5, 6.5, 8.5, 7.0, 8.0, "French footwear brand founded in 2005, making trainers with organic and recycled materials and fair-trade rubber from the Amazon, with unusually transparent costs and no advertising.", "https://www.veja-store.com", "Veja (brand)"),
   E("OATLY", "finance", 7.0, 7.5, 8.0, 8.0, 6.0, "Swedish oat drink company with roots in 1990s food science at Lund University, which turned plant milk into a global category through outspoken climate-first branding. Listed on Nasdaq in 2021.", "https://www.oatly.com", "Oatly"),
 
-  /* ---- CITIES & PLACE ---- */
-  E("COPENHAGEN", "cities", 9.0, 8.0, 9.0, 8.0, 9.0, "The Danish capital, consistently ranked among the world's most liveable cities, where bicycles outnumber cars in the centre and an ambitious carbon-neutrality programme has reshaped energy, transport and public space.", null, "Copenhagen"),
-  E("SINGAPORE", "cities", 8.5, 8.5, 8.0, 7.5, 7.5, "Southeast Asian city-state of around six million people, transformed within two generations into a global hub and planned for the long term under its City in a Garden greening strategy.", null, "Singapore"),
-  E("MEDELLÍN", "cities", 8.0, 7.5, 9.0, 7.5, 8.0, "Colombia's second city, which moved from being the world's most dangerous city in the early 1990s to a model of social urbanism, using cable cars, libraries and public space to connect its poorest hillside districts.", null, "Medellín"),
-  E("PARIS", "cities", 8.0, 8.0, 8.5, 8.0, 7.5, "The French capital, which under mayor Anne Hidalgo became the leading test bed for the fifteen-minute city, removing car space at scale in favour of cycling, greening and local living.", null, "Paris"),
-  E("AMSTERDAM", "cities", 8.0, 7.5, 8.5, 7.5, 8.0, "The Dutch capital, a global model for cycling infrastructure and, since 2020, the first city to formally adopt doughnut economics as a framework for its policy making.", null, "Amsterdam"),
-  E("HELSINKI", "cities", 8.0, 7.5, 8.5, 7.0, 8.0, "The Finnish capital, known for design and public sauna culture, and for Housing First, the policy through which Finland became the only EU country to substantially reduce homelessness.", null, "Helsinki"),
 ];
 
 /* ---------- scoring ---------- */
