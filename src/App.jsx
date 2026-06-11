@@ -221,6 +221,7 @@ const IMG_RESOLVED = new Map(); // id -> resolved src, or null when all candidat
 
 function useEntryImage(entry) {
   const id = entry.img || slug(entry.name);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const candidates = useMemo(() => imgCandidates(entry), [id]);
   const [step, setStep] = useState(() => {
     const r = IMG_RESOLVED.get(id);
