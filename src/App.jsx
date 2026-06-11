@@ -4,10 +4,43 @@ import { useState, useEffect, useRef, useMemo, memo, useCallback } from "react";
    THE PATHFINDER INDEX · A DEEP TIME SURVEY
    Black / White / International Klein Blue
    Druk Wide (titles) · Favorit (body) with free fallbacks
+   Imagery served from Deep Time's Cloudinary library.
    ============================================================ */
 
 const IKB = "#002FA7";
 const SIGNAL = "#2E5BFF";
+
+/* ---------- Cloudinary ----------
+   Images are looked up by each entry's name, lowercased with underscores
+   (e.g. TEENAGE ENGINEERING -> teenage_engineering). Upload an image with
+   that public ID and it appears automatically; until then the entry shows
+   its sigil. An entry can override its image name via the img field. */
+const CLOUD_NAME = "df9vuqda1";
+
+const slug = (name) =>
+  name
+    .toLowerCase()
+    .replace(/['\u2019]/g, "")
+    .replace(/\u0153/g, "oe")
+    .replace(/\u00f8/g, "o")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+
+const CLOUD_FOLDER = "pathfinder-images"; // set to "" if images sit at the root of the media library
+
+const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,c_fill,g_auto,w_640,h_800`;
+
+/* Each entry tries its image inside the folder first, then at the root,
+   then falls back to its sigil. */
+const imgCandidates = (entry) => {
+  const id = entry.img || slug(entry.name);
+  const list = [];
+  if (CLOUD_FOLDER) list.push(`${CLOUD_BASE}/${CLOUD_FOLDER}/${id}`);
+  list.push(`${CLOUD_BASE}/${id}`);
+  return list;
+};
 
 const DIMENSIONS = [
   { key: "v", label: "VISION", weight: 0.25, desc: "Clarity of the future they see" },
@@ -36,28 +69,17 @@ const SECTORS = [
   { id: "education", label: "EDUCATION" },
   { id: "finance", label: "COMMERCE & IMPACT" },
   { id: "cities", label: "CITIES & PLACE" },
-  { id: "people", label: "PEOPLE" },
 ];
 
 /* name, sector, v(ision), i(mpact), b(enefit), s(ignal), p(belief), description, url, wiki title */
-const E = (name, sector, v, i, b, s, p, desc, url, wiki) => ({
+const E = (name, sector, v, i, b, s, p, desc, url, wiki, img) => ({
   name, sector, v, i, b, s, p, desc,
   url: url || null,
   wiki: wiki || name,
+  img: img || null,
 });
 
 const ENTRIES = [
-  /* ---- PEOPLE ---- */
-  E("DAVID ATTENBOROUGH", "people", 9.5, 9.0, 10, 10, 10, "British broadcaster and natural historian whose documentary career with the BBC spans more than seven decades, including Life on Earth, The Blue Planet and Planet Earth. Widely regarded as the world's foremost voice for the natural world.", null, "David Attenborough"),
-  E("JANE GOODALL", "people", 9.0, 8.5, 9.5, 9.0, 9.5, "English primatologist whose research at Gombe Stream in Tanzania from 1960 transformed the scientific understanding of chimpanzees. Founder of the Jane Goodall Institute and the youth programme Roots & Shoots.", "https://janegoodall.org", "Jane Goodall"),
-  E("ES DEVLIN", "people", 9.0, 8.0, 8.5, 9.0, 8.5, "British artist and stage designer known for large-scale sculptural sets for opera, theatre and stadium tours, alongside installations for museums and world expos. Her work spans Beyoncé and U2 to the UK Pavilion at Expo 2020.", "https://esdevlin.com", "Es Devlin"),
-  E("OLAFUR ELIASSON", "people", 8.5, 8.0, 9.0, 8.5, 8.5, "Icelandic-Danish artist whose installations use light, water and ice to make perception and climate tangible, from The Weather Project at Tate Modern to Ice Watch. Leads the Berlin-based Studio Olafur Eliasson.", "https://olafureliasson.net", "Olafur Eliasson"),
-  E("KATALIN KARIKÓ", "people", 8.5, 8.5, 9.5, 6.5, 8.5, "Hungarian-American biochemist whose decades of research into messenger RNA underpinned the COVID-19 vaccines developed by BioNTech and Moderna. Awarded the Nobel Prize in Physiology or Medicine in 2023.", null, "Katalin Karikó"),
-  E("BRIAN ENO", "people", 8.5, 7.5, 8.5, 8.0, 8.5, "English musician, producer and visual artist who pioneered ambient music and produced landmark records for Bowie, Talking Heads and U2. A co-founder of the Long Now Foundation and advocate of long-term thinking.", null, "Brian Eno"),
-  E("BJARKE INGELS", "people", 8.5, 8.5, 8.0, 8.5, 7.5, "Danish architect and founder of Bjarke Ingels Group, known for projects such as CopenHill, a ski slope built on a Copenhagen power plant. His practice promotes what he calls hedonistic sustainability.", "https://big.dk", "Bjarke Ingels"),
-  E("GRETA THUNBERG", "people", 8.5, 8.5, 8.5, 8.5, 6.5, "Swedish climate activist whose 2018 school strike outside the Swedish parliament grew into the global Fridays for Future movement. Has addressed the United Nations, the EU and the World Economic Forum.", null, "Greta Thunberg"),
-  E("REFIK ANADOL", "people", 8.0, 7.5, 7.5, 8.5, 7.5, "Turkish-American media artist who uses machine learning and large datasets to create immersive public installations, including Unsupervised at MoMA. Runs a studio in Los Angeles.", "https://refikanadol.com", "Refik Anadol"),
-
   /* ---- AI & COMPUTE ---- */
   E("ANTHROPIC", "ai", 9.5, 9.5, 9.0, 8.0, 8.0, "American AI safety company founded in 2021 by former OpenAI researchers, and the developer of the Claude family of AI models. Its research focuses on making AI systems reliable, interpretable and steerable.", "https://www.anthropic.com", "Anthropic"),
   E("DEEPMIND", "ai", 9.0, 9.5, 9.0, 7.5, 8.0, "British-American AI laboratory founded in London in 2010 and now part of Google. Its AlphaFold system predicted the structures of over 200 million proteins, a landmark contribution to biology.", "https://deepmind.google", "Google DeepMind"),
@@ -194,141 +216,42 @@ const RANKED_ALL = ENTRIES.map((e) => ({ ...e, score: score(e) })).sort((a, b) =
 const linkFor = (e) => e.url || `https://en.wikipedia.org/wiki/${encodeURIComponent(e.wiki.replace(/ /g, "_"))}`;
 const isWikiLink = (e) => !e.url;
 
-/* ---------- image resolution ----------
-   Three layers: a static Wikimedia URL embedded at build time (no fetch
-   required), then the lead image of the entry's Wikipedia article via the
-   public REST API, then the entry's generative sigil. Logos are framed on
-   a paper panel; photographs fill the frame. */
-const STATIC_IMG = {
-  "Wikipedia": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/512px-Wikipedia-logo-v2.svg.png", logo: true },
-  "NASA": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/512px-NASA_logo.svg.png", logo: true },
-  "Tesla, Inc.": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/512px-Tesla_Motors.svg.png", logo: true },
-  "Apple Inc.": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/512px-Apple_logo_black.svg.png", logo: true },
-  "Lego": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png", logo: true },
-  "IKEA": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Ikea_logo.svg/512px-Ikea_logo.svg.png", logo: true },
-  "Nvidia": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Nvidia_logo.svg/512px-Nvidia_logo.svg.png", logo: true },
-  "OpenAI": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/512px-OpenAI_Logo.svg.png", logo: true },
-  "SpaceX": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/SpaceX_logo_black.svg/512px-SpaceX_logo_black.svg.png", logo: true },
-  "European Space Agency": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/ESA_logo.svg/512px-ESA_logo.svg.png", logo: true },
-  "Stripe, Inc.": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo,_revised_2016.svg/512px-Stripe_Logo,_revised_2016.svg.png", logo: true },
-  "Figma": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/512px-Figma-logo.svg.png", logo: true },
-  "A24": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/A24_logo.svg/512px-A24_logo.svg.png", logo: true },
-  "Y Combinator": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Y_Combinator_logo.svg/512px-Y_Combinator_logo.svg.png", logo: true },
-  "Patagonia, Inc.": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Patagonia_(Unternehmen)_logo.svg/512px-Patagonia_(Unternehmen)_logo.svg.png", logo: true },
-  "Internet Archive": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Internet_Archive_logo_and_wordmark.svg/512px-Internet_Archive_logo_and_wordmark.svg.png", logo: true },
-  "Raspberry Pi Foundation": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Raspberry_Pi_Logo.svg/512px-Raspberry_Pi_Logo.svg.png", logo: true },
-  "Leica Camera": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Leica_Camera_logo.svg/512px-Leica_Camera_logo.svg.png", logo: true },
-  "Muji": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/MUJI_logo.svg/512px-MUJI_logo.svg.png", logo: true },
-  "Paris": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/640px-Tour_Eiffel_Wikimedia_Commons.jpg", logo: false },
-  "Amsterdam": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/KeizersgrachtReguliersgrachtAmsterdam.jpg/640px-KeizersgrachtReguliersgrachtAmsterdam.jpg", logo: false },
-  "Anthropic": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Anthropic_logo.svg/512px-Anthropic_logo.svg.png", logo: true },
-  "Hugging Face": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Hugging_Face_logo.svg/512px-Hugging_Face_logo.svg.png", logo: true },
-  "Boston Dynamics": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Boston_Dynamics_logo.svg/512px-Boston_Dynamics_logo.svg.png", logo: true },
-  "Blue Origin": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Blue_Origin_logo.svg/512px-Blue_Origin_logo.svg.png", logo: true },
-  "Moderna": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Moderna_logo.svg/512px-Moderna_logo.svg.png", logo: true },
-  "BioNTech": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BioNTech_Logo.svg/512px-BioNTech_Logo.svg.png", logo: true },
-  "Neuralink": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Neuralink_logo.svg/512px-Neuralink_logo.svg.png", logo: true },
-  "23andMe": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/23andMe_logo.svg/512px-23andMe_logo.svg.png", logo: true },
-  "Octopus Energy": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Octopus_Energy_logo.svg/512px-Octopus_Energy_logo.svg.png", logo: true },
-  "Oatly": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Oatly_logo.svg/512px-Oatly_logo.svg.png", logo: true },
-  "The Ocean Cleanup": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/The_Ocean_Cleanup_logo.svg/512px-The_Ocean_Cleanup_logo.svg.png", logo: true },
-  "Ecosia": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Ecosia_logo.svg/512px-Ecosia_logo.svg.png", logo: true },
-  "Fairphone": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Fairphone_logo.svg/512px-Fairphone_logo.svg.png", logo: true },
-  "Teenage Engineering": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Teenage_Engineering_logo.svg/512px-Teenage_Engineering_logo.svg.png", logo: true },
-  "Wellcome Trust": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Wellcome_Trust_logo.svg/512px-Wellcome_Trust_logo.svg.png", logo: true },
-  "Tony's Chocolonely": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Tony's_Chocolonely_logo.svg/512px-Tony's_Chocolonely_logo.svg.png", logo: true },
-  "Our World in Data": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Our_World_in_Data_logo.svg/512px-Our_World_in_Data_logo.svg.png", logo: true },
-  "Rocket Lab": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Rocket_Lab_logo.svg/512px-Rocket_Lab_logo.svg.png", logo: true },
-  "Planet Labs": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Planet_Labs_logo.svg/512px-Planet_Labs_logo.svg.png", logo: true },
-  "Relativity Space": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Relativity_Space_logo.svg/512px-Relativity_Space_logo.svg.png", logo: true },
-  "Meow Wolf": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Meow_Wolf_logo.svg/512px-Meow_Wolf_logo.svg.png", logo: true },
-  "Studio Ghibli": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Studio_Ghibli_logo.svg/512px-Studio_Ghibli_logo.svg.png", logo: true },
-  "Anduril Industries": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anduril_Industries_logo.svg/512px-Anduril_Industries_logo.svg.png", logo: true },
-  "Rivian": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Rivian_logo_and_wordmark.svg/512px-Rivian_logo_and_wordmark.svg.png", logo: true },
-  "Dyson (company)": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Dyson_logo.svg/512px-Dyson_logo.svg.png", logo: true },
-  "CERN": { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/CERN_logo.svg/512px-CERN_logo.svg.png", logo: true },
-};
-
-const IMG_FINAL = new Map(); // wiki -> { src, logo }
-const REST_PENDING = new Map();
-
-function fetchRest(wiki) {
-  if (REST_PENDING.has(wiki)) return REST_PENDING.get(wiki);
-  const p = (async () => {
-    try {
-      const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
-      const t = setTimeout(() => ctrl && ctrl.abort(), 9000);
-      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wiki)}`, {
-        signal: ctrl ? ctrl.signal : undefined,
-      });
-      clearTimeout(t);
-      if (!r.ok) return null;
-      const j = await r.json();
-      const thumb = j && j.thumbnail && j.thumbnail.source ? j.thumbnail.source : null;
-      const orig = j && j.originalimage ? j.originalimage : null;
-      let url = thumb;
-      if (url && orig && orig.width) {
-        const target = Math.min(640, orig.width);
-        url = url.replace(/\/(\d+)px-/, "/" + target + "px-");
-      }
-      if (!url && orig && orig.width && orig.width <= 1600) url = orig.source;
-      return url || null;
-    } catch (err) {
-      return null;
-    }
-  })();
-  REST_PENDING.set(wiki, p);
-  return p;
-}
+/* ---------- image hook: Cloudinary or sigil ---------- */
+const IMG_RESOLVED = new Map(); // id -> resolved src, or null when all candidates failed
 
 function useEntryImage(entry) {
-  const init = () => {
-    const fin = IMG_FINAL.get(entry.wiki);
-    if (fin) return fin;
-    const s = STATIC_IMG[entry.wiki];
-    if (s) return { src: s.src, logo: s.logo };
-    return { src: null, logo: false };
-  };
-  const [img, setImg] = useState(init);
+  const id = entry.img || slug(entry.name);
+  const candidates = useMemo(() => imgCandidates(entry), [id]);
+  const [step, setStep] = useState(() => {
+    const r = IMG_RESOLVED.get(id);
+    if (r === null) return candidates.length; // known dead, go straight to sigil
+    if (r) return candidates.indexOf(r) >= 0 ? candidates.indexOf(r) : 0;
+    return 0;
+  });
 
   useEffect(() => {
-    const fin = IMG_FINAL.get(entry.wiki);
-    if (fin) { setImg(fin); return; }
-    const s = STATIC_IMG[entry.wiki];
-    if (s) { setImg({ src: s.src, logo: s.logo }); return; }
-    let alive = true;
-    fetchRest(entry.wiki).then((url) => {
-      const f = { src: url, logo: /\.svg/i.test(url || "") };
-      IMG_FINAL.set(entry.wiki, f);
-      if (alive) setImg(f);
-    });
-    return () => { alive = false; };
-  }, [entry.wiki]);
-
-  const onLoad = useCallback(() => {
-    if (!IMG_FINAL.has(entry.wiki)) {
-      const s = STATIC_IMG[entry.wiki];
-      if (s) IMG_FINAL.set(entry.wiki, { src: s.src, logo: s.logo });
-    }
-  }, [entry.wiki]);
+    const r = IMG_RESOLVED.get(id);
+    if (r === null) setStep(candidates.length);
+    else if (r && candidates.indexOf(r) >= 0) setStep(candidates.indexOf(r));
+    else setStep(0);
+  }, [id, candidates]);
 
   const onError = useCallback(() => {
-    const fin = IMG_FINAL.get(entry.wiki);
-    if (fin && fin.src) {
-      const dead = { src: null, logo: false };
-      IMG_FINAL.set(entry.wiki, dead);
-      setImg(dead);
-      return;
-    }
-    setImg({ src: null, logo: false });
-    fetchRest(entry.wiki).then((url) => {
-      const f = { src: url, logo: /\.svg/i.test(url || "") };
-      IMG_FINAL.set(entry.wiki, f);
-      setImg(f);
+    setStep((s) => {
+      const next = s + 1;
+      if (next >= candidates.length) IMG_RESOLVED.set(id, null);
+      return next;
     });
-  }, [entry.wiki]);
+  }, [id, candidates]);
 
-  return { src: img.src, logo: img.logo, onLoad, onError };
+  const onLoad = useCallback(() => {
+    setStep((s) => {
+      if (s < candidates.length) IMG_RESOLVED.set(id, candidates[s]);
+      return s;
+    });
+  }, [id, candidates]);
+
+  return { src: step < candidates.length ? candidates[step] : null, onError, onLoad };
 }
 
 /* ---------- sigil: orbital glyph drawn from the five scores ---------- */
@@ -397,7 +320,7 @@ const Tile = memo(function Tile({ entry, w, h, onOpen }) {
   const tier = tierOf(entry.score);
   const isPF = tier.name === "PATHFINDER";
   const sector = SECTORS.find((s) => s.id === entry.sector);
-  const { src, logo, onLoad, onError } = useEntryImage(entry);
+  const { src, onError, onLoad } = useEntryImage(entry);
   return (
     <button
       className={`pf-tile ${isPF ? "pf-tile-path" : ""} ${src ? "" : "pf-tile-sigilmode"}`}
@@ -415,10 +338,10 @@ const Tile = memo(function Tile({ entry, w, h, onOpen }) {
         </span>
         <span className="pf-tile-score">{fmt(entry.score)}</span>
       </span>
-      <span className={`pf-photo ${src && logo ? "pf-photo-logo" : ""}`}>
+      <span className="pf-photo">
         {src ? (
           <img
-            className={logo ? "pf-img pf-img-logo" : "pf-img"}
+            className="pf-img"
             src={src}
             alt=""
             loading="lazy"
@@ -467,9 +390,9 @@ function InfiniteField({ list, cell, onOpen, reduced }) {
   useEffect(() => {
     const el = fieldRef.current;
     const measure = () => {
-      const w = el ? el.clientWidth : window.innerWidth;
-      const h = el ? el.clientHeight : window.innerHeight;
-      setVp((p) => (p.vw === w && p.vh === h ? p : { vw: w, vh: h }));
+      const w2 = el ? el.clientWidth : window.innerWidth;
+      const h2 = el ? el.clientHeight : window.innerHeight;
+      setVp((p) => (p.vw === w2 && p.vh === h2 ? p : { vw: w2, vh: h2 }));
     };
     measure();
     const raf = requestAnimationFrame(measure);
@@ -626,7 +549,7 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
   const isPF = tier.name === "PATHFINDER";
   const sector = SECTORS.find((s) => s.id === entry.sector);
   const animated = useCountUp(entry.score, 750);
-  const { src, logo, onLoad, onError } = useEntryImage(entry);
+  const { src, onError, onLoad } = useEntryImage(entry);
   const [barsOn, setBarsOn] = useState(false);
 
   useEffect(() => {
@@ -658,11 +581,11 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
         onClick={(e) => e.stopPropagation()}
         key={entry.name}
       >
-        <div className={`pf-card-media ${src && logo ? "pf-card-media-logo" : ""}`}>
+        <div className="pf-card-media">
           {src ? (
             <>
               <img
-                className={logo ? "pf-card-img pf-card-img-logo" : "pf-card-img"}
+                className="pf-card-img"
                 src={src}
                 alt={entry.name}
                 onLoad={onLoad}
@@ -752,7 +675,7 @@ function Method({ onClose, total }) {
       <div className="pf-detail-scroll pf-method">
         <h2 className="pf-method-title">A LIVING SURVEY OF THOSE BUILDING THE FUTURE</h2>
         <p className="pf-body">
-          The Pathfinder Index is Deep Time's living survey of the organisations, people and places doing the most to
+          The Pathfinder Index is Deep Time's living survey of the organisations, brands and places doing the most to
           push humanity forward through art, science and culture. It exists to celebrate the pioneers, to spotlight the
           clarity of their vision and to dramatise the distance between those who talk about the future and those who
           are building it.
@@ -785,8 +708,8 @@ function Method({ onClose, total }) {
         </div>
 
         <p className="pf-body pf-dim-note">
-          Descriptions are drawn from each entry's public record. Imagery is loaded from Wikimedia; where a host blocks
-          external images, tiles fall back to each entry's sigil, a glyph drawn from its five scores.
+          Descriptions are drawn from each entry's public record. Imagery is curated by Deep Time; entries awaiting an
+          image show their sigil, a glyph drawn from their five scores.
         </p>
 
         <p className="pf-mission">
@@ -1001,16 +924,13 @@ const CSS = `
 }
 .pf-tile:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 
-/* Full-colour imagery inset on black, phantom-style. Logos sit on a
-   paper panel so dark wordmarks stay visible; photographs fill the frame. */
+/* Full-colour imagery inset on black, phantom-style. */
 .pf-photo {
   position: relative; flex: 1; margin: 8px 0 9px;
   background: #0B0B0B; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
-.pf-photo-logo { background: #ECEAE3; }
 .pf-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 260ms ease; }
-.pf-img-logo { object-fit: contain; width: 74%; height: 74%; }
 
 @media (hover:hover) {
   .pf-tile:hover { border-color: rgba(255,255,255,0.6); }
@@ -1167,12 +1087,9 @@ const CSS = `
 @keyframes pf-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 .pf-card-media { position: relative; height: 170px; flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.pf-card-media-logo { background: #ECEAE3; }
 .pf-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pf-card-img-logo { object-fit: contain; width: 70%; height: 70%; }
-.pf-card-media-logo .pf-card-mediascrim { display: none; }
 .pf-card-mediascrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%); pointer-events: none; }
-.pf-card-sigilbox { height: 100%; display: flex; align-items: center; justify-content: center; color: #fff; background: #000; }
+.pf-card-sigilbox { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; color: #fff; background: #000; }
 .pf-card-x { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); }
 .pf-card-counter { position: absolute; left: 12px; bottom: 10px; }
 
