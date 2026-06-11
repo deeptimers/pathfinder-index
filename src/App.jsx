@@ -58,17 +58,9 @@ const TIERS = [
 ];
 
 const SECTORS = [
-  { id: "ai", label: "AI & COMPUTE" },
-  { id: "space", label: "SPACE" },
-  { id: "biotech", label: "BIO & HEALTH" },
-  { id: "energy", label: "ENERGY & CLIMATE" },
+  { id: "art", label: "ART" },
   { id: "science", label: "SCIENCE" },
-  { id: "culture", label: "CULTURE & ARTS" },
-  { id: "music", label: "MUSIC & SOUND" },
-  { id: "design", label: "DESIGN" },
-  { id: "deeptech", label: "DEEP TECH" },
-  { id: "education", label: "EDUCATION" },
-  { id: "finance", label: "COMMERCE & IMPACT" },
+  { id: "culture", label: "CULTURE" },
 ];
 
 /* name, sector, v(ision), i(mpact), b(enefit), s(ignal), p(belief), description, url, wiki title */
@@ -80,56 +72,38 @@ const E = (name, sector, v, i, b, s, p, desc, url, wiki, img) => ({
 });
 
 const ENTRIES = [
-  /* ---- AI & COMPUTE ---- */
-  E("ANTHROPIC", "ai", 9.5, 9.5, 9.0, 8.0, 8.0, "American AI safety company founded in 2021 by former OpenAI researchers, and the developer of the Claude family of AI models. Its research focuses on making AI systems reliable, interpretable and steerable.", "https://www.anthropic.com", "Anthropic"),
-  E("DEEPMIND", "ai", 9.0, 9.5, 9.0, 7.5, 8.0, "British-American AI laboratory founded in London in 2010 and now part of Google. Its AlphaFold system predicted the structures of over 200 million proteins, a landmark contribution to biology.", "https://deepmind.google", "Google DeepMind"),
-  E("NVIDIA", "ai", 8.5, 9.5, 7.5, 8.0, 8.0, "American technology company founded in 1993 whose graphics processors became the standard hardware for training modern AI systems, making it one of the most valuable companies in the world.", "https://www.nvidia.com", "Nvidia"),
-  E("OPENAI", "ai", 8.5, 9.5, 7.0, 8.5, 6.5, "American AI company founded in 2015 and the developer of ChatGPT, the GPT models and the Sora video generator. Began as a non-profit and has since restructured around a for-profit arm.", "https://openai.com", "OpenAI"),
-  E("HUGGING FACE", "ai", 8.0, 8.0, 8.5, 7.0, 8.0, "American-French company that hosts the leading open platform for sharing machine learning models and datasets. Its open-source libraries, including Transformers, are foundational to modern AI development.", "https://huggingface.co", "Hugging Face"),
-  E("AI2", "ai", 8.0, 8.0, 9.0, 6.0, 7.0, "Non-profit AI research institute founded in Seattle in 2014 by Paul Allen. Releases fully open language models and tools, including the OLMo family, for scientific and public use.", "https://allenai.org", "Allen Institute for AI"),
-  E("MISTRAL", "ai", 7.5, 8.0, 7.5, 6.0, 7.0, "French AI company founded in Paris in 2023 by former DeepMind and Meta researchers, releasing open-weight large language models. Widely seen as Europe's leading frontier AI lab.", "https://mistral.ai", "Mistral AI"),
-  E("RUNWAY", "ai", 7.5, 8.0, 7.0, 8.0, 7.0, "New York research company building generative AI tools for video and film, including the Gen series of video models. Its tools have been used in feature films and music videos.", "https://runwayml.com", "Runway (company)"),
-  E("COHERE", "ai", 7.0, 7.5, 7.5, 5.5, 6.5, "Canadian AI company founded in Toronto in 2019 by former Google researchers, building large language models aimed at enterprise and business use.", "https://cohere.com", "Cohere"),
-  E("MIDJOURNEY", "ai", 7.0, 8.0, 6.5, 6.5, 6.5, "Independent San Francisco research lab behind one of the most widely used AI image generators, run as a small self-funded team founded by David Holz in 2021.", "https://www.midjourney.com", "Midjourney"),
-
-  /* ---- SPACE ---- */
-  E("SPACEX", "space", 9.5, 10, 7.5, 8.5, 7.5, "American aerospace company founded by Elon Musk in 2002 with the stated goal of making humanity multiplanetary. Developed the first orbital-class reusable rockets and operates the Starlink satellite network.", "https://www.spacex.com", "SpaceX"),
+  E("ANTHROPIC", "science", 9.5, 9.5, 9.0, 8.0, 8.0, "American AI safety company founded in 2021 by former OpenAI researchers, and the developer of the Claude family of AI models. Its research focuses on making AI systems reliable, interpretable and steerable.", "https://www.anthropic.com", "Anthropic"),
+  E("DEEPMIND", "science", 9.0, 9.5, 9.0, 7.5, 8.0, "British-American AI laboratory founded in London in 2010 and now part of Google. Its AlphaFold system predicted the structures of over 200 million proteins, a landmark contribution to biology.", "https://deepmind.google", "Google DeepMind"),
+  E("NVIDIA", "science", 8.5, 9.5, 7.5, 8.0, 8.0, "American technology company founded in 1993 whose graphics processors became the standard hardware for training modern AI systems, making it one of the most valuable companies in the world.", "https://www.nvidia.com", "Nvidia"),
+  E("HUGGING FACE", "science", 8.0, 8.0, 8.5, 7.0, 8.0, "American-French company that hosts the leading open platform for sharing machine learning models and datasets. Its open-source libraries, including Transformers, are foundational to modern AI development.", "https://huggingface.co", "Hugging Face"),
+  E("AI2", "science", 8.0, 8.0, 9.0, 6.0, 7.0, "Non-profit AI research institute founded in Seattle in 2014 by Paul Allen. Releases fully open language models and tools, including the OLMo family, for scientific and public use.", "https://allenai.org", "Allen Institute for AI"),
+  E("RUNWAY", "science", 7.5, 8.0, 7.0, 8.0, 7.0, "New York research company building generative AI tools for video and film, including the Gen series of video models. Its tools have been used in feature films and music videos.", "https://runwayml.com", "Runway (company)"),
+  E("SPACEX", "science", 9.5, 10, 7.5, 8.5, 7.5, "American aerospace company founded by Elon Musk in 2002 with the stated goal of making humanity multiplanetary. Developed the first orbital-class reusable rockets and operates the Starlink satellite network.", "https://www.spacex.com", "SpaceX"),
   E("NASA", "science", 8.5, 9.5, 9.0, 9.5, 9.5, "The United States' civil space agency, founded in 1958 and responsible for the Apollo Moon landings, the Space Shuttle, the James Webb Space Telescope and the Artemis programme returning humans to the Moon.", "https://www.nasa.gov", "NASA"),
-  E("ESA", "space", 8.0, 9.0, 9.0, 6.5, 8.0, "The intergovernmental space agency of more than 20 European states, founded in 1975 and headquartered in Paris. Its work spans Earth observation, the Ariane launchers and deep-space science missions such as Juice and Gaia.", "https://www.esa.int", "European Space Agency"),
-  E("ROCKET LAB", "space", 8.0, 8.0, 7.5, 6.5, 7.5, "American-New Zealand launch company founded by Peter Beck in 2006, whose Electron became one of the most frequently flown small rockets. Now developing the larger reusable Neutron launcher.", "https://www.rocketlabusa.com", "Rocket Lab"),
-  E("PLANET LABS", "space", 8.0, 8.0, 8.5, 7.0, 7.0, "American Earth-imaging company founded by former NASA engineers in 2010. Operates the largest fleet of Earth-observation satellites and images the planet's entire landmass every day.", "https://www.planet.com", "Planet Labs"),
-  E("RELATIVITY SPACE", "space", 8.0, 8.5, 7.0, 7.5, 6.5, "Los Angeles launch company founded in 2015 and known for 3D printing the majority of its rockets. Flew Terran 1, the first largely 3D-printed rocket, in 2023 and is developing the reusable Terran R.", "https://www.relativityspace.com", "Relativity Space"),
-  E("STOKE SPACE", "space", 8.0, 8.5, 7.5, 6.5, 6.5, "Seattle-area launch company founded in 2020 by Blue Origin and SpaceX veterans, developing Nova, a rocket designed to be fully and rapidly reusable from first stage to second.", "https://www.stokespace.com", "Stoke Space"),
-  E("VARDA", "space", 7.5, 8.0, 7.5, 7.0, 6.0, "Californian company founded in 2021 to manufacture pharmaceuticals in microgravity and return them to Earth in re-entry capsules. Has completed its first in-space drug processing missions.", "https://www.varda.com", "Varda Space Industries"),
-  E("BLUE ORIGIN", "space", 7.5, 9.0, 7.0, 6.0, 5.5, "Aerospace company founded by Jeff Bezos in 2000 with the long-term vision of millions of people living and working in space. Flies the suborbital New Shepard and the orbital New Glenn rocket.", "https://www.blueorigin.com", "Blue Origin"),
-  E("ASTRA", "space", 6.5, 7.5, 6.5, 5.5, 5.0, "Californian small-launch company founded in 2016 that reached orbit in 2021 but struggled with reliability and finances, later refocusing on spacecraft engines and going private.", "https://astra.com", "Astra Space"),
-
-  /* ---- BIO & HEALTH ---- */
-  E("MSF", "biotech", 9.0, 9.0, 10, 8.0, 9.0, "Médecins Sans Frontières, the international humanitarian medical organisation founded in Paris in 1971. Delivers emergency care in conflict zones, epidemics and disasters, and was awarded the Nobel Peace Prize in 1999.", "https://www.msf.org", "Médecins Sans Frontières"),
-  E("BIONTECH", "biotech", 9.0, 9.0, 9.5, 7.0, 8.0, "German biotechnology company founded in Mainz in 2008, which developed the first approved mRNA vaccine with Pfizer during the COVID-19 pandemic. Now focused on mRNA-based cancer immunotherapies.", "https://www.biontech.com", "BioNTech"),
-  E("ISOMORPHIC LABS", "biotech", 8.5, 9.0, 9.0, 6.5, 7.0, "London drug discovery company spun out of DeepMind in 2021, applying AlphaFold-derived AI to the design of new medicines. Led by DeepMind co-founder Demis Hassabis.", "https://www.isomorphiclabs.com", "Isomorphic Labs"),
-  E("NEURALINK", "biotech", 8.5, 9.5, 7.0, 7.5, 6.0, "American neurotechnology company founded by Elon Musk in 2016, developing implantable brain-computer interfaces. Began first-in-human trials of its implant in 2024.", "https://neuralink.com", "Neuralink"),
-  E("CRISPR THERAPEUTICS", "biotech", 8.0, 9.0, 9.0, 6.5, 7.0, "Swiss-American gene-editing company co-founded by Nobel laureate Emmanuelle Charpentier. Its therapy Casgevy, approved in 2023 for sickle cell disease, was the first CRISPR-based medicine to reach patients.", "https://www.crisprtx.com", "CRISPR Therapeutics"),
-  E("RECURSION", "biotech", 8.0, 8.5, 8.5, 7.0, 6.5, "Salt Lake City biotechnology company founded in 2013, using automated experiments and machine learning to map cellular biology and discover drugs at industrial scale.", "https://www.recursion.com", "Recursion Pharmaceuticals"),
-  E("MODERNA", "biotech", 8.0, 8.5, 8.5, 7.5, 6.5, "American biotechnology company founded in 2010, a pioneer of messenger RNA medicine and maker of one of the principal COVID-19 vaccines. Developing mRNA treatments for cancer, flu and rare disease.", "https://www.modernatx.com", "Moderna"),
-  E("COLOSSAL", "biotech", 7.5, 9.0, 6.5, 8.5, 6.0, "Texas biosciences company founded in 2021, applying gene editing to de-extinction projects including the woolly mammoth, thylacine and dodo, alongside conservation biotechnology for endangered species.", "https://colossal.com", "Colossal Biosciences"),
-  E("23ANDME", "biotech", 5.5, 7.0, 6.0, 6.0, 4.0, "Californian consumer genetics company founded in 2006 that brought DNA testing to the mass market. Later suffered a major data breach and financial collapse, filing for bankruptcy protection in 2025.", "https://www.23andme.com", "23andMe"),
-
-  /* ---- ENERGY & CLIMATE ---- */
-  E("PATAGONIA", "energy", 9.5, 8.5, 9.5, 9.0, 9.5, "American outdoor clothing company founded by Yvon Chouinard in 1973. In 2022 ownership was transferred to a trust and non-profit so that all profits fund climate action, with Earth described as the company's only shareholder.", "https://www.patagonia.com", "Patagonia, Inc."),
-  E("COMMONWEALTH FUSION", "energy", 9.0, 9.5, 9.5, 7.0, 7.0, "MIT spin-out founded in 2018, building SPARC, a compact tokamak intended to demonstrate net-energy fusion. Backed by some of the largest private investment in fusion energy.", "https://cfs.energy", "Commonwealth Fusion Systems"),
-  E("THE OCEAN CLEANUP", "energy", 8.5, 8.5, 9.0, 8.5, 8.0, "Dutch non-profit founded by Boyan Slat in 2013, developing systems to remove plastic from the Great Pacific Garbage Patch and to intercept it in rivers before it reaches the sea.", "https://theoceancleanup.com", "The Ocean Cleanup"),
-  E("ØRSTED", "energy", 8.5, 8.5, 9.0, 7.5, 7.5, "Danish energy company, formerly the oil and gas firm DONG Energy, which transformed itself into the world's largest developer of offshore wind power.", "https://orsted.com", "Ørsted (company)"),
-  E("CLIMEWORKS", "energy", 8.5, 8.5, 9.0, 7.0, 7.0, "Swiss company founded in 2009, operating the world's first commercial direct air capture plants in Iceland, which remove carbon dioxide from the atmosphere for permanent storage underground.", "https://climeworks.com", "Climeworks"),
-  E("FORM ENERGY", "energy", 8.5, 8.5, 9.0, 6.5, 7.0, "American battery company founded in 2017, developing iron-air batteries that can store energy for several days at a time, aimed at making renewable electricity grids reliable.", "https://formenergy.com", "Form Energy"),
-  E("TESLA", "energy", 8.5, 9.5, 8.0, 8.0, 5.5, "American electric vehicle and energy company led by Elon Musk, which brought EVs to the mass market and builds grid-scale battery storage and solar products.", "https://www.tesla.com", "Tesla, Inc."),
-  E("HELION", "energy", 8.0, 9.0, 9.0, 7.0, 6.5, "Washington-state fusion company founded in 2013, developing a pulsed fusion generator. Holds a power purchase agreement with Microsoft, the first of its kind for fusion electricity.", "https://www.helionenergy.com", "Helion Energy"),
-  E("OCTOPUS ENERGY", "energy", 8.0, 8.0, 8.5, 7.5, 8.0, "British renewable energy company founded in 2015, one of the UK's largest household suppliers. Its Kraken software platform is licensed to utilities around the world.", "https://octopus.energy", "Octopus Energy"),
-  E("INTERFACE", "energy", 8.0, 7.5, 8.5, 7.0, 7.0, "American modular flooring manufacturer that became a landmark of industrial sustainability under founder Ray Anderson, completing its Mission Zero programme in 2019 and now selling carbon-negative carpet tiles.", "https://www.interface.com", "Interface, Inc."),
-  E("ECOSIA", "energy", 7.5, 7.0, 8.5, 7.5, 8.0, "Berlin-based search engine founded in 2009 that uses its advertising profits to fund tree planting, with more than 200 million trees planted across the world to date.", "https://www.ecosia.org", "Ecosia"),
-  E("RIVIAN", "energy", 7.5, 7.5, 8.0, 7.5, 6.5, "American electric vehicle maker founded in 2009, producing adventure-focused trucks and SUVs as well as the electric delivery vans originally developed for Amazon.", "https://rivian.com", "Rivian"),
-
-  /* ---- SCIENCE ---- */
+  E("ESA", "science", 8.0, 9.0, 9.0, 6.5, 8.0, "The intergovernmental space agency of more than 20 European states, founded in 1975 and headquartered in Paris. Its work spans Earth observation, the Ariane launchers and deep-space science missions such as Juice and Gaia.", "https://www.esa.int", "European Space Agency"),
+  E("ROCKET LAB", "science", 8.0, 8.0, 7.5, 6.5, 7.5, "American-New Zealand launch company founded by Peter Beck in 2006, whose Electron became one of the most frequently flown small rockets. Now developing the larger reusable Neutron launcher.", "https://www.rocketlabusa.com", "Rocket Lab"),
+  E("PLANET LABS", "science", 8.0, 8.0, 8.5, 7.0, 7.0, "American Earth-imaging company founded by former NASA engineers in 2010. Operates the largest fleet of Earth-observation satellites and images the planet's entire landmass every day.", "https://www.planet.com", "Planet Labs"),
+  E("RELATIVITY SPACE", "science", 8.0, 8.5, 7.0, 7.5, 6.5, "Los Angeles launch company founded in 2015 and known for 3D printing the majority of its rockets. Flew Terran 1, the first largely 3D-printed rocket, in 2023 and is developing the reusable Terran R.", "https://www.relativityspace.com", "Relativity Space"),
+  E("STOKE SPACE", "science", 8.0, 8.5, 7.5, 6.5, 6.5, "Seattle-area launch company founded in 2020 by Blue Origin and SpaceX veterans, developing Nova, a rocket designed to be fully and rapidly reusable from first stage to second.", "https://www.stokespace.com", "Stoke Space"),
+  E("VARDA", "science", 7.5, 8.0, 7.5, 7.0, 6.0, "Californian company founded in 2021 to manufacture pharmaceuticals in microgravity and return them to Earth in re-entry capsules. Has completed its first in-space drug processing missions.", "https://www.varda.com", "Varda Space Industries"),
+  E("MSF", "science", 9.0, 9.0, 10, 8.0, 9.0, "Médecins Sans Frontières, the international humanitarian medical organisation founded in Paris in 1971. Delivers emergency care in conflict zones, epidemics and disasters, and was awarded the Nobel Peace Prize in 1999.", "https://www.msf.org", "Médecins Sans Frontières"),
+  E("BIONTECH", "science", 9.0, 9.0, 9.5, 7.0, 8.0, "German biotechnology company founded in Mainz in 2008, which developed the first approved mRNA vaccine with Pfizer during the COVID-19 pandemic. Now focused on mRNA-based cancer immunotherapies.", "https://www.biontech.com", "BioNTech"),
+  E("ISOMORPHIC LABS", "science", 8.5, 9.0, 9.0, 6.5, 7.0, "London drug discovery company spun out of DeepMind in 2021, applying AlphaFold-derived AI to the design of new medicines. Led by DeepMind co-founder Demis Hassabis.", "https://www.isomorphiclabs.com", "Isomorphic Labs"),
+  E("NEURALINK", "science", 8.5, 9.5, 7.0, 7.5, 6.0, "American neurotechnology company founded by Elon Musk in 2016, developing implantable brain-computer interfaces. Began first-in-human trials of its implant in 2024.", "https://neuralink.com", "Neuralink"),
+  E("CRISPR THERAPEUTICS", "science", 8.0, 9.0, 9.0, 6.5, 7.0, "Swiss-American gene-editing company co-founded by Nobel laureate Emmanuelle Charpentier. Its therapy Casgevy, approved in 2023 for sickle cell disease, was the first CRISPR-based medicine to reach patients.", "https://www.crisprtx.com", "CRISPR Therapeutics"),
+  E("RECURSION", "science", 8.0, 8.5, 8.5, 7.0, 6.5, "Salt Lake City biotechnology company founded in 2013, using automated experiments and machine learning to map cellular biology and discover drugs at industrial scale.", "https://www.recursion.com", "Recursion Pharmaceuticals"),
+  E("MODERNA", "science", 8.0, 8.5, 8.5, 7.5, 6.5, "American biotechnology company founded in 2010, a pioneer of messenger RNA medicine and maker of one of the principal COVID-19 vaccines. Developing mRNA treatments for cancer, flu and rare disease.", "https://www.modernatx.com", "Moderna"),
+  E("COLOSSAL", "science", 7.5, 9.0, 6.5, 8.5, 6.0, "Texas biosciences company founded in 2021, applying gene editing to de-extinction projects including the woolly mammoth, thylacine and dodo, alongside conservation biotechnology for endangered species.", "https://colossal.com", "Colossal Biosciences"),
+  E("PATAGONIA", "culture", 9.5, 8.5, 9.5, 9.0, 9.5, "American outdoor clothing company founded by Yvon Chouinard in 1973. In 2022 ownership was transferred to a trust and non-profit so that all profits fund climate action, with Earth described as the company's only shareholder.", "https://www.patagonia.com", "Patagonia, Inc."),
+  E("COMMONWEALTH FUSION", "science", 9.0, 9.5, 9.5, 7.0, 7.0, "MIT spin-out founded in 2018, building SPARC, a compact tokamak intended to demonstrate net-energy fusion. Backed by some of the largest private investment in fusion energy.", "https://cfs.energy", "Commonwealth Fusion Systems"),
+  E("THE OCEAN CLEANUP", "science", 8.5, 8.5, 9.0, 8.5, 8.0, "Dutch non-profit founded by Boyan Slat in 2013, developing systems to remove plastic from the Great Pacific Garbage Patch and to intercept it in rivers before it reaches the sea.", "https://theoceancleanup.com", "The Ocean Cleanup"),
+  E("ØRSTED", "science", 8.5, 8.5, 9.0, 7.5, 7.5, "Danish energy company, formerly the oil and gas firm DONG Energy, which transformed itself into the world's largest developer of offshore wind power.", "https://orsted.com", "Ørsted (company)"),
+  E("CLIMEWORKS", "science", 8.5, 8.5, 9.0, 7.0, 7.0, "Swiss company founded in 2009, operating the world's first commercial direct air capture plants in Iceland, which remove carbon dioxide from the atmosphere for permanent storage underground.", "https://climeworks.com", "Climeworks"),
+  E("FORM ENERGY", "science", 8.5, 8.5, 9.0, 6.5, 7.0, "American battery company founded in 2017, developing iron-air batteries that can store energy for several days at a time, aimed at making renewable electricity grids reliable.", "https://formenergy.com", "Form Energy"),
+  E("TESLA", "science", 8.5, 9.5, 8.0, 8.0, 5.5, "American electric vehicle and energy company led by Elon Musk, which brought EVs to the mass market and builds grid-scale battery storage and solar products.", "https://www.tesla.com", "Tesla, Inc."),
+  E("HELION", "science", 8.0, 9.0, 9.0, 7.0, 6.5, "Washington-state fusion company founded in 2013, developing a pulsed fusion generator. Holds a power purchase agreement with Microsoft, the first of its kind for fusion electricity.", "https://www.helionenergy.com", "Helion Energy"),
+  E("INTERFACE", "science", 8.0, 7.5, 8.5, 7.0, 7.0, "American modular flooring manufacturer that became a landmark of industrial sustainability under founder Ray Anderson, completing its Mission Zero programme in 2019 and now selling carbon-negative carpet tiles.", "https://www.interface.com", "Interface, Inc."),
+  E("ECOSIA", "science", 7.5, 7.0, 8.5, 7.5, 8.0, "Berlin-based search engine founded in 2009 that uses its advertising profits to fund tree planting, with more than 200 million trees planted across the world to date.", "https://www.ecosia.org", "Ecosia"),
   E("CERN", "science", 9.0, 9.5, 9.5, 7.0, 8.5, "The European Organization for Nuclear Research, founded in 1954 near Geneva, operates the Large Hadron Collider, where the Higgs boson was discovered in 2012. The World Wide Web was invented there in 1989.", "https://home.cern", "CERN"),
   E("LONG NOW FOUNDATION", "science", 9.5, 7.5, 9.0, 8.0, 8.0, "San Francisco foundation established in 1996 to foster long-term thinking. Best known for building a monumental clock inside a Texas mountain, designed to keep time for 10,000 years.", "https://longnow.org", "Long Now Foundation"),
   E("ITER", "science", 8.5, 9.5, 9.5, 6.0, 7.0, "International fusion megaproject under construction in southern France, in which 35 nations are collaborating to build the world's largest tokamak and demonstrate fusion power at industrial scale.", "https://www.iter.org", "ITER"),
@@ -145,91 +119,66 @@ const ENTRIES = [
   E("SETI INSTITUTE", "science", 8.5, 7.0, 8.0, 7.5, 7.5, "Californian research institute founded in 1984, searching for life and intelligence beyond Earth with radio telescopes, AI and planetary science.", "https://www.seti.org", "SETI Institute"),
   E("ROYAL INSTITUTION", "science", 8.0, 7.0, 8.5, 7.5, 8.0, "London home of science communication since 1799, where Faraday lectured and ten chemical elements were discovered, and whose Christmas Lectures have run since 1825.", "https://www.rigb.org", "Royal Institution"),
   E("PERIMETER INSTITUTE", "science", 8.0, 7.5, 8.5, 6.0, 7.0, "Independent Canadian centre for theoretical physics founded in 1999, probing quantum gravity and the foundations of the universe while sharing its training freely online.", "https://perimeterinstitute.ca", "Perimeter Institute"),
-
-  /* ---- CULTURE & ARTS ---- */
-  E("STUDIO GHIBLI", "culture", 8.5, 7.5, 9.0, 9.5, 9.5, "Japanese animation studio founded in 1985 by Hayao Miyazaki, Isao Takahata and Toshio Suzuki. Creator of Spirited Away, My Neighbour Totoro and Princess Mononoke.", "https://www.ghibli.jp", "Studio Ghibli"),
   E("TATE MODERN", "culture", 8.5, 8.0, 8.5, 8.0, 8.5, "Britain's national museum of modern and contemporary art, opened in a converted Bankside power station in 2000 and consistently among the most visited art museums in the world.", "https://www.tate.org.uk", "Tate Modern"),
-  E("TEAMLAB", "culture", 8.5, 8.0, 8.0, 8.5, 8.5, "Tokyo art collective founded in 2001, creating immersive digital installations and the permanent Borderless and Planets museums, which draw millions of visitors a year.", "https://www.teamlab.art", "TeamLab (art collective)"),
-  E("A24", "culture", 8.0, 7.0, 8.0, 9.5, 9.0, "Independent New York film studio founded in 2012, producer and distributor of Moonlight, Everything Everywhere All at Once and Past Lives, and winner of multiple Best Picture Oscars.", "https://a24films.com", "A24"),
+  E("TEAMLAB", "art", 8.5, 8.0, 8.0, 8.5, 8.5, "Tokyo art collective founded in 2001, creating immersive digital installations and the permanent Borderless and Planets museums, which draw millions of visitors a year.", "https://www.teamlab.art", "TeamLab (art collective)"),
+  E("A24", "art", 8.0, 7.0, 8.0, 9.5, 9.0, "Independent New York film studio founded in 2012, producer and distributor of Moonlight, Everything Everywhere All at Once and Past Lives, and winner of multiple Best Picture Oscars.", "https://a24films.com", "A24"),
   E("MOMA", "culture", 8.0, 7.5, 8.5, 8.0, 8.5, "The Museum of Modern Art in New York, founded in 1929, holds one of the most influential collections of modern and contemporary art in the world.", "https://www.moma.org", "Museum of Modern Art"),
   E("V&A", "culture", 8.0, 7.5, 8.5, 7.5, 8.5, "London's Victoria and Albert Museum, founded in 1852, is the world's largest museum of applied arts, decorative arts and design, with a collection spanning 5,000 years.", "https://www.vam.ac.uk", "Victoria and Albert Museum"),
   E("SERPENTINE", "culture", 8.0, 7.5, 8.0, 8.0, 8.0, "Pair of contemporary art galleries in London's Kensington Gardens, known for free exhibitions, a pioneering arts and technology programme and the annual Serpentine Pavilion architecture commission.", "https://www.serpentinegalleries.org", "Serpentine Galleries"),
-  E("PUNCHDRUNK", "culture", 8.0, 7.0, 7.5, 8.5, 8.0, "British theatre company founded in 2000 that pioneered large-scale immersive theatre, including Sleep No More, in which audiences roam freely through the performance.", "https://www.punchdrunk.com", "Punchdrunk"),
   E("FACTORY INTERNATIONAL", "culture", 8.0, 7.5, 8.0, 7.5, 7.0, "Manchester arts organisation behind the Manchester International Festival and Aviva Studios, a landmark venue for commissioning new work that opened in 2023.", "https://factoryinternational.org", "Factory International"),
-  E("GLASTONBURY", "music", 7.5, 7.0, 8.0, 8.0, 8.5, "The world's largest greenfield music and performing arts festival, held on a Somerset farm since 1970 and run by the Eavis family, with long-standing environmental commitments.", "https://www.glastonburyfestivals.co.uk", "Glastonbury Festival"),
+  E("GLASTONBURY", "culture", 7.5, 7.0, 8.0, 8.0, 8.5, "The world's largest greenfield music and performing arts festival, held on a Somerset farm since 1970 and run by the Eavis family, with long-standing environmental commitments.", "https://www.glastonburyfestivals.co.uk", "Glastonbury Festival"),
   E("PALACE", "culture", 7.5, 6.5, 7.0, 8.5, 8.5, "London skateboard and clothing brand founded in 2009 by Lev Tanju, which grew from a skate crew into one of streetwear's most influential labels while remaining independent.", "https://www.palaceskateboards.com", "Palace Skateboards"),
-  E("LEICA", "culture", 7.5, 6.5, 7.5, 8.0, 8.5, "German camera manufacturer based in Wetzlar whose 35mm cameras shaped a century of photojournalism, from Henri Cartier-Bresson onwards.", "https://leica-camera.com", "Leica Camera"),
   E("BARBICAN", "culture", 7.5, 7.0, 8.0, 7.5, 8.0, "Europe's largest multi-arts centre, opened in the City of London in 1982 within a celebrated Brutalist estate, housing concert halls, theatres, cinemas, galleries and a conservatory.", "https://www.barbican.org.uk", "Barbican Centre"),
-  E("MEOW WOLF", "culture", 7.5, 7.0, 7.5, 8.0, 7.5, "American arts company that began as a Santa Fe collective in 2008, building permanent immersive art installations such as House of Eternal Return. Structured as a certified B Corporation.", "https://meowwolf.com", "Meow Wolf"),
+  E("MEOW WOLF", "art", 7.5, 7.0, 7.5, 8.0, 7.5, "American arts company that began as a Santa Fe collective in 2008, building permanent immersive art installations such as House of Eternal Return. Structured as a certified B Corporation.", "https://meowwolf.com", "Meow Wolf"),
 
-  E("JAMES TURRELL", "culture", 9.0, 7.0, 8.0, 8.0, 8.0, "American artist who works with light and space, transforming Roden Crater, an extinct Arizona volcano, into a monumental naked-eye observatory five decades in the making.", null, "James Turrell"),
-  E("OLAFUR ELIASSON", "culture", 9.0, 8.0, 8.5, 8.5, 8.0, "Danish-Icelandic artist whose installations bring natural phenomena into galleries and cities, from the weather project at Tate Modern to Ice Watch, and whose Little Sun project distributes solar light.", "https://olafureliasson.net", "Olafur Eliasson"),
-  E("REFIK ANADOL", "culture", 8.0, 7.5, 7.0, 9.0, 7.5, "Turkish-American media artist who turns vast datasets into living architectural canvases, and whose work Unsupervised filled MoMA's lobby with machine dreams of its own collection.", "https://refikanadol.com", "Refik Anadol"),
-  E("TOM\u00c1S SARACENO", "culture", 8.5, 7.0, 8.0, 8.0, 7.0, "Argentine artist whose Aerocene project develops fossil-free flight with solar balloons, and whose installations built with living spider webs reframe humanity's place among species.", "https://tomassaraceno.com", "Tom\u00e1s Saraceno"),
-  E("STUDIO DRIFT", "culture", 8.0, 7.0, 7.5, 8.5, 7.5, "Amsterdam studio of Lonneke Gordijn and Ralph Nauta, choreographing drone swarms and kinetic sculptures that put technology in dialogue with nature.", "https://www.studiodrift.com", "Studio Drift"),
-  E("RANDOM INTERNATIONAL", "culture", 7.5, 6.5, 7.5, 8.5, 7.5, "London art collective best known for Rain Room, an indoor downpour that pauses wherever a visitor walks, exploring instinct, simulation and collective behaviour.", "https://www.random-international.com", "Random International"),
-  E("MARSHMALLOW LASER FEAST", "culture", 8.0, 6.5, 8.0, 8.0, 7.0, "London experiential art collective using virtual reality and breath-tracking to let audiences experience forests, oceans and the inside of the body.", "https://www.marshmallowlaserfeast.com", "Marshmallow Laser Feast"),
-  E("ARS ELECTRONICA", "culture", 8.5, 7.5, 8.5, 7.5, 7.5, "Linz festival, museum and lab founded in 1979 at the meeting point of art, technology and society, whose annual Prix is the most established award in media art.", "https://ars.electronica.art", "Ars Electronica"),
-  E("RIJKSMUSEUM", "culture", 8.0, 7.5, 9.0, 7.5, 8.5, "The Netherlands' national museum, which released hundreds of thousands of artworks as free high-resolution downloads through Rijksstudio, setting the standard for open cultural access.", "https://www.rijksmuseum.nl", "Rijksmuseum"),
+  E("REFIK ANADOL", "art", 8.0, 7.5, 7.0, 9.0, 7.5, "Turkish-American media artist who turns vast datasets into living architectural canvases, and whose work Unsupervised filled MoMA's lobby with machine dreams of its own collection.", "https://refikanadol.com", "Refik Anadol"),
+  E("STUDIO DRIFT", "art", 8.0, 7.0, 7.5, 8.5, 7.5, "Amsterdam studio of Lonneke Gordijn and Ralph Nauta, choreographing drone swarms and kinetic sculptures that put technology in dialogue with nature.", "https://www.studiodrift.com", "Studio Drift"),
+  E("RANDOM INTERNATIONAL", "art", 7.5, 6.5, 7.5, 8.5, 7.5, "London art collective best known for Rain Room, an indoor downpour that pauses wherever a visitor walks, exploring instinct, simulation and collective behaviour.", "https://www.random-international.com", "Random International"),
+  E("MARSHMALLOW LASER FEAST", "art", 8.0, 6.5, 8.0, 8.0, 7.0, "London experiential art collective using virtual reality and breath-tracking to let audiences experience forests, oceans and the inside of the body.", "https://www.marshmallowlaserfeast.com", "Marshmallow Laser Feast"),
   E("SOMERSET HOUSE", "culture", 7.5, 7.0, 8.0, 7.5, 8.0, "Neoclassical London landmark turned creative community, home to hundreds of resident artists and makers, Somerset House Studios and a courtyard of fountains, film and ice.", "https://www.somersethouse.org.uk", "Somerset House"),
-  E("CRITERION", "culture", 7.5, 6.5, 8.0, 8.0, 8.5, "New York home video company dedicated to publishing and restoring important classic and contemporary films, treating cinema as an art form worth preserving.", "https://www.criterion.com", "The Criterion Collection"),
-  E("PHAIDON", "culture", 7.0, 6.5, 7.5, 7.0, 7.5, "Art and design publisher founded in Vienna in 1923, producing definitive books on artists, architecture and food from offices in London and New York.", "https://www.phaidon.com", "Phaidon Press"),
 
-  E("BOILER ROOM", "music", 8.0, 7.0, 8.0, 8.5, 8.5, "Hackney-based collective broadcasting DJ sets and live music from around the world since 2010, a platform that democratised access to electronic and experimental music.", "https://boilerroom.tv", "Boiler Room (collective)"),
-  E("RYOJI IKEDA", "music", 8.5, 7.0, 7.5, 8.0, 6.5, "Japanese media artist working with light, sound and data, whose Datamatics project visualises the sublime in terabytes, and whose installations turn mathematics into sensory experience.", "https://www.ryoji-ikeda.com", "Ryoji Ikeda"),
+  E("BOILER ROOM", "culture", 8.0, 7.0, 8.0, 8.5, 8.5, "Hackney-based collective broadcasting DJ sets and live music from around the world since 2010, a platform that democratised access to electronic and experimental music.", "https://boilerroom.tv", "Boiler Room (collective)"),
+  E("WARP RECORDS", "culture", 8.0, 7.5, 7.5, 8.5, 8.5, "Independent label born in Sheffield in 1989, home to Aphex Twin, Boards of Canada and Autechre, which defined the sound of electronic listening music.", "https://warp.net", "Warp (record label)"),
+  E("NINJA TUNE", "culture", 7.5, 7.0, 8.0, 7.5, 8.0, "Independent London label founded by Coldcut in 1990, an early leader on sustainability in music with a solar-powered headquarters and support for the Music Climate Pact.", "https://ninjatune.net", "Ninja Tune"),
+  E("NTS RADIO", "culture", 8.0, 7.0, 8.0, 8.5, 8.5, "Independent online radio station founded in Hackney in 2011, broadcasting from London, Manchester, Los Angeles and Shanghai with thousands of resident hosts and no playlists.", "https://www.nts.live", "NTS Radio"),
+  E("BANDCAMP", "culture", 7.5, 7.5, 8.5, 7.0, 8.0, "Online music platform founded in 2008 where fans buy directly from artists, paying out the large majority of every sale; its Bandcamp Fridays have channelled hundreds of millions of dollars to musicians.", "https://bandcamp.com", "Bandcamp"),
+  E("APPLE", "art", 8.5, 9.0, 7.5, 9.5, 8.0, "American technology company founded in 1976, maker of the iPhone and Mac and the company that defined modern consumer hardware design. Aims for carbon neutrality across all its products by 2030.", "https://www.apple.com", "Apple Inc."),
+  E("TEENAGE ENGINEERING", "art", 8.0, 7.0, 8.0, 8.5, 8.5, "Swedish electronics company founded in Stockholm in 2007, designing playful audio hardware such as the OP-1 synthesiser and collaborating with brands from IKEA to Nothing.", "https://teenage.engineering", "Teenage Engineering"),
+  E("IKEA", "art", 8.0, 8.5, 8.0, 7.5, 8.0, "Swedish furniture retailer founded by Ingvar Kamprad in 1943, whose flat-pack democratic design made good furniture affordable worldwide. Investing heavily in circular and renewable operations.", "https://www.ikea.com", "IKEA"),
+  E("ABLETON", "art", 7.5, 7.0, 8.0, 7.0, 8.5, "Berlin music software company founded in 1999 by musicians, maker of Ableton Live, a digital audio workstation built for performance as much as production, and the Push instrument.", "https://www.ableton.com", "Ableton"),
+  E("IDEO", "art", 7.5, 7.5, 8.0, 8.5, 7.5, "Global design consultancy formed in Palo Alto in 1991, which popularised design thinking and human-centred design across products, services and organisations.", "https://www.ideo.com", "IDEO"),
+  E("MUJI", "art", 7.5, 7.0, 8.0, 7.0, 8.0, "Japanese retailer founded in 1980 around the idea of no-brand quality goods, selling simple, functional products with an ethos of sufficiency and restraint.", "https://www.muji.com", "Muji"),
+  E("PENTAGRAM", "art", 7.0, 7.0, 7.5, 7.5, 8.0, "The world's largest independent design consultancy, founded in London in 1972 and owned entirely by its partners, who each lead their own creative teams.", "https://www.pentagram.com", "Pentagram (design firm)"),
+  E("NOTHING", "art", 7.0, 7.0, 6.5, 8.0, 7.0, "London consumer technology company founded by Carl Pei in 2020, building smartphones and earbuds with a distinctive transparent design language.", "https://nothing.tech", "Nothing (company)"),
 
-  /* ---- MUSIC & SOUND ---- */
-  E("BRIAN ENO", "music", 9.0, 7.5, 8.5, 8.5, 8.5, "British musician and artist who pioneered ambient music and co-founded EarthPercent, a charity channelling music industry money into climate action. A long-serving trustee of the Long Now Foundation, whose name he coined.", null, "Brian Eno"),
-  E("APHEX TWIN", "music", 8.0, 7.0, 7.0, 8.5, 8.5, "Cornish electronic musician Richard D. James, widely regarded as one of the most inventive figures in electronic music, whose work on Warp Records reshaped what the genre could be.", null, "Aphex Twin"),
-  E("BJ\u00d6RK", "music", 8.5, 7.5, 8.0, 9.0, 8.5, "Icelandic musician whose work fuses music, technology and the natural world, from the Biophilia app album to campaigns protecting Iceland's highlands from heavy industry.", null, "Bj\u00f6rk"),
-  E("MAX RICHTER", "music", 7.5, 6.5, 8.0, 8.0, 8.5, "German-British composer whose eight-hour work Sleep reimagined how and where music is experienced, and a defining voice of the post-classical movement.", null, "Max Richter"),
-  E("WARP RECORDS", "music", 8.0, 7.5, 7.5, 8.5, 8.5, "Independent label born in Sheffield in 1989, home to Aphex Twin, Boards of Canada and Autechre, which defined the sound of electronic listening music.", "https://warp.net", "Warp (record label)"),
-  E("HYPERDUB", "music", 8.0, 7.0, 7.5, 8.0, 7.5, "London label founded by Steve Goodman, alias Kode9, in 2004, which grew from dubstep's first wave into one of electronic music's most forward-looking imprints.", "https://hyperdub.net", "Hyperdub"),
-  E("NINJA TUNE", "music", 7.5, 7.0, 8.0, 7.5, 8.0, "Independent London label founded by Coldcut in 1990, an early leader on sustainability in music with a solar-powered headquarters and support for the Music Climate Pact.", "https://ninjatune.net", "Ninja Tune"),
-  E("ECM", "music", 8.0, 6.5, 8.0, 7.5, 8.0, "Munich label founded by Manfred Eicher in 1969, releasing jazz and contemporary classical music with uncompromising production values, from Keith Jarrett's Koln Concert to Arvo Part.", "https://www.ecmrecords.com", "ECM Records"),
-  E("NTS RADIO", "music", 8.0, 7.0, 8.0, 8.5, 8.5, "Independent online radio station founded in Hackney in 2011, broadcasting from London, Manchester, Los Angeles and Shanghai with thousands of resident hosts and no playlists.", "https://www.nts.live", "NTS Radio"),
-  E("BANDCAMP", "music", 7.5, 7.5, 8.5, 7.0, 8.0, "Online music platform founded in 2008 where fans buy directly from artists, paying out the large majority of every sale; its Bandcamp Fridays have channelled hundreds of millions of dollars to musicians.", "https://bandcamp.com", "Bandcamp"),
+  E("FRAMEWORK", "science", 8.0, 7.5, 9.0, 7.5, 8.0, "San Francisco company founded in 2019, making modular laptops designed to be repaired and upgraded by their owners, a working proof of the right-to-repair movement.", "https://frame.work", "Framework Computer"),
+  E("IONQ", "science", 8.0, 8.5, 8.0, 6.0, 6.5, "American quantum computing company founded in 2015 from University of Maryland and Duke research, building trapped-ion quantum computers accessible through the major cloud platforms.", "https://ionq.com", "IonQ"),
+  E("FAIRPHONE", "science", 8.0, 7.0, 9.0, 7.0, 7.5, "Dutch social enterprise founded in 2013, making modular, repairable smartphones with fairly sourced materials and transparent supply chains.", "https://www.fairphone.com", "Fairphone"),
 
-  /* ---- DESIGN ---- */
-  E("APPLE", "design", 8.5, 9.0, 7.5, 9.5, 8.0, "American technology company founded in 1976, maker of the iPhone and Mac and the company that defined modern consumer hardware design. Aims for carbon neutrality across all its products by 2030.", "https://www.apple.com", "Apple Inc."),
-  E("TEENAGE ENGINEERING", "design", 8.0, 7.0, 8.0, 8.5, 8.5, "Swedish electronics company founded in Stockholm in 2007, designing playful audio hardware such as the OP-1 synthesiser and collaborating with brands from IKEA to Nothing.", "https://teenage.engineering", "Teenage Engineering"),
-  E("IKEA", "design", 8.0, 8.5, 8.0, 7.5, 8.0, "Swedish furniture retailer founded by Ingvar Kamprad in 1943, whose flat-pack democratic design made good furniture affordable worldwide. Investing heavily in circular and renewable operations.", "https://www.ikea.com", "IKEA"),
-  E("ABLETON", "music", 7.5, 7.0, 8.0, 7.0, 8.5, "Berlin music software company founded in 1999 by musicians, maker of Ableton Live, a digital audio workstation built for performance as much as production, and the Push instrument.", "https://www.ableton.com", "Ableton"),
-  E("IDEO", "design", 7.5, 7.5, 8.0, 8.5, 7.5, "Global design consultancy formed in Palo Alto in 1991, which popularised design thinking and human-centred design across products, services and organisations.", "https://www.ideo.com", "IDEO"),
-  E("MUJI", "design", 7.5, 7.0, 8.0, 7.0, 8.0, "Japanese retailer founded in 1980 around the idea of no-brand quality goods, selling simple, functional products with an ethos of sufficiency and restraint.", "https://www.muji.com", "Muji"),
-  E("PENTAGRAM", "design", 7.0, 7.0, 7.5, 7.5, 8.0, "The world's largest independent design consultancy, founded in London in 1972 and owned entirely by its partners, who each lead their own creative teams.", "https://www.pentagram.com", "Pentagram (design firm)"),
-  E("NOTHING", "design", 7.0, 7.0, 6.5, 8.0, 7.0, "London consumer technology company founded by Carl Pei in 2020, building smartphones and earbuds with a distinctive transparent design language.", "https://nothing.tech", "Nothing (company)"),
+  E("SIGNAL", "science", 8.5, 8.0, 9.0, 6.5, 7.5, "Non-profit foundation behind the Signal messenger, whose end-to-end encryption protocol also secures billions of conversations in other apps, run without advertising or data harvesting.", "https://signal.org", "Signal (software)"),
+  E("WIKIPEDIA", "culture", 9.0, 9.0, 10, 5.5, 9.0, "The free encyclopaedia, launched in 2001 and written collaboratively by volunteers, now spanning tens of millions of articles in more than 300 languages. Operated by the non-profit Wikimedia Foundation.", "https://www.wikipedia.org", "Wikipedia"),
+  E("RASPBERRY PI", "culture", 8.0, 7.5, 9.0, 7.0, 8.5, "Cambridge-based charity founded in 2008 to put affordable computing into young people's hands. Its tiny single-board computers have sold in the tens of millions worldwide.", "https://www.raspberrypi.org", "Raspberry Pi Foundation"),
 
-  E("SN\u00d8HETTA", "design", 8.5, 8.0, 8.5, 8.0, 8.0, "Norwegian architecture studio behind the Oslo Opera House and the Powerhouse series of energy-positive buildings, which produce more energy than they consume over their lifetime.", "https://www.snohetta.com", "Sn\u00f8hetta"),
-  E("BLENDER", "design", 8.0, 8.0, 9.0, 7.0, 8.5, "Free and open-source 3D creation suite maintained by the Amsterdam-based Blender Foundation, now used on Oscar-winning films and by millions of artists who could never afford commercial tools.", "https://www.blender.org", "Blender (software)"),
+  E("EDEN PROJECT", "culture", 8.0, 7.0, 8.5, 8.0, 8.5, "Cornish educational charity built in a former clay pit, whose giant biomes house the world's largest indoor rainforest and teach regeneration at scale.", "https://www.edenproject.com", "Eden Project"),
+  E("BREAKTHROUGH ENERGY", "science", 8.5, 9.0, 9.0, 7.0, 7.5, "Network founded by Bill Gates in 2015, investing patient capital in early-stage climate technologies, from fusion and long-duration batteries to green steel and sustainable aviation fuel.", "https://www.breakthroughenergy.org", "Breakthrough Energy"),
 
-  /* ---- DEEP TECH ---- */
-  E("BOSTON DYNAMICS", "deeptech", 8.0, 8.5, 7.0, 8.5, 7.5, "American robotics company spun out of MIT in 1992, creator of the Atlas humanoid and Spot quadruped robots, and now owned by Hyundai Motor Group.", "https://bostondynamics.com", "Boston Dynamics"),
-  E("FRAMEWORK", "deeptech", 8.0, 7.5, 9.0, 7.5, 8.0, "San Francisco company founded in 2019, making modular laptops designed to be repaired and upgraded by their owners, a working proof of the right-to-repair movement.", "https://frame.work", "Framework Computer"),
-  E("CEREBRAS", "deeptech", 8.0, 8.5, 7.5, 6.0, 6.5, "Californian AI hardware company founded in 2016, maker of the Wafer-Scale Engine, the largest computer chip ever built, used for training and running AI models.", "https://www.cerebras.ai", "Cerebras"),
-  E("IONQ", "deeptech", 8.0, 8.5, 8.0, 6.0, 6.5, "American quantum computing company founded in 2015 from University of Maryland and Duke research, building trapped-ion quantum computers accessible through the major cloud platforms.", "https://ionq.com", "IonQ"),
-  E("FAIRPHONE", "deeptech", 8.0, 7.0, 9.0, 7.0, 7.5, "Dutch social enterprise founded in 2013, making modular, repairable smartphones with fairly sourced materials and transparent supply chains.", "https://www.fairphone.com", "Fairphone"),
-  E("DYSON", "deeptech", 7.5, 7.5, 7.5, 7.0, 7.5, "British technology company founded by James Dyson in 1991, known for cyclonic vacuum cleaners, bladeless fans and an engineering-led product culture. Headquartered in Singapore.", "https://www.dyson.com", "Dyson (company)"),
-
-  E("SIGNAL", "deeptech", 8.5, 8.0, 9.0, 6.5, 7.5, "Non-profit foundation behind the Signal messenger, whose end-to-end encryption protocol also secures billions of conversations in other apps, run without advertising or data harvesting.", "https://signal.org", "Signal (software)"),
-
-  /* ---- EDUCATION ---- */
-  E("WIKIPEDIA", "education", 9.0, 9.0, 10, 5.5, 9.0, "The free encyclopaedia, launched in 2001 and written collaboratively by volunteers, now spanning tens of millions of articles in more than 300 languages. Operated by the non-profit Wikimedia Foundation.", "https://www.wikipedia.org", "Wikipedia"),
-  E("KHAN ACADEMY", "education", 9.0, 8.5, 9.5, 7.5, 9.0, "Non-profit founded by Sal Khan in 2008, providing free online lessons and practice in maths, science and the humanities to learners worldwide, now including the AI tutor Khanmigo.", "https://www.khanacademy.org", "Khan Academy"),
-  E("OUR WORLD IN DATA", "education", 9.0, 8.0, 9.5, 8.0, 8.5, "Oxford-based research publication founded by Max Roser, presenting open data and analysis on global problems from poverty to climate change. Used by media, schools and policymakers worldwide.", "https://ourworldindata.org", "Our World in Data"),
-  E("RASPBERRY PI", "education", 8.0, 7.5, 9.0, 7.0, 8.5, "Cambridge-based charity founded in 2008 to put affordable computing into young people's hands. Its tiny single-board computers have sold in the tens of millions worldwide.", "https://www.raspberrypi.org", "Raspberry Pi Foundation"),
-  E("BRILLIANT", "education", 7.5, 7.5, 8.5, 7.0, 7.0, "San Francisco education company founded in 2012, teaching maths, science, programming and reasoning through interactive problem solving rather than lectures.", "https://brilliant.org", "Brilliant.org"),
-
-  E("ARDUINO", "education", 8.0, 7.5, 9.0, 7.0, 8.5, "Open-source electronics platform born at the Ivrea Interaction Design Institute in 2005, which put physical computing into the hands of millions of students, artists and inventors.", "https://www.arduino.cc", "Arduino"),
-  E("PROCESSING FOUNDATION", "education", 8.0, 7.0, 9.0, 6.5, 7.5, "Non-profit behind Processing and p5.js, the free creative coding tools that taught a generation of artists and designers to program.", "https://processingfoundation.org", "Processing (programming language)"),
-  E("MIT PRESS", "education", 7.5, 7.0, 8.5, 6.5, 7.5, "University press founded in 1962, publishing landmark works across science, technology, art and design, and an early mover in open access publishing.", "https://mitpress.mit.edu", "MIT Press"),
-  E("EDEN PROJECT", "education", 8.0, 7.0, 8.5, 8.0, 8.5, "Cornish educational charity built in a former clay pit, whose giant biomes house the world's largest indoor rainforest and teach regeneration at scale.", "https://www.edenproject.com", "Eden Project"),
-  E("EXPLORATORIUM", "education", 8.0, 7.0, 8.5, 7.0, 8.0, "San Francisco's museum of science, art and human perception, founded by physicist Frank Oppenheimer in 1969, whose hands-on exhibits set the template for science museums worldwide.", "https://www.exploratorium.edu", "Exploratorium"),
-
-  /* ---- COMMERCE & IMPACT ---- */
-  E("BREAKTHROUGH ENERGY", "finance", 8.5, 9.0, 9.0, 7.0, 7.5, "Network founded by Bill Gates in 2015, investing patient capital in early-stage climate technologies, from fusion and long-duration batteries to green steel and sustainable aviation fuel.", "https://www.breakthroughenergy.org", "Breakthrough Energy"),
-  E("WELLCOME TRUST", "finance", 8.5, 8.5, 9.0, 6.5, 7.5, "London charitable foundation established in 1936 from the estate of Henry Wellcome, and one of the world's largest funders of health research, with a multi-billion pound endowment.", "https://wellcome.org", "Wellcome Trust"),
-
+  E("SNØHETTA", "art", 8.5, 8.0, 8.5, 8.0, 8.0, "Norwegian architecture and design studio behind the Oslo Opera House and the Powerhouse series of energy-positive buildings, which generate more energy over their lifetime than they use.", "https://www.snohetta.com", "Snøhetta"),
+  E("BJARKE INGELS GROUP", "art", 8.5, 8.0, 7.5, 8.5, 7.5, "Copenhagen and New York architecture practice founded by Bjarke Ingels, whose CopenHill power plant doubles as a ski slope and whose Masterplanet project imagines a sustainable redesign of Earth.", "https://big.dk", "Bjarke Ingels Group"),
+  E("STUDIO ROOSEGAARDE", "art", 9.0, 7.5, 8.5, 8.5, 7.5, "Dutch social design lab founded by Daan Roosegaarde, building landscapes of the future that merge technology and nature, from smog-eating towers to luminous solar fields.", "https://www.studioroosegaarde.net", "Daan Roosegaarde"),
+  E("NIKE", "art", 7.5, 8.5, 6.5, 9.0, 8.5, "American sportswear company founded in 1964, a defining force in product design and brand storytelling, whose Move to Zero programme commits to zero carbon and zero waste.", "https://www.nike.com", "Nike, Inc."),
+  E("EPIC GAMES", "art", 8.0, 8.5, 7.0, 8.5, 7.5, "American software company founded in 1991, maker of Unreal Engine and Fortnite, whose real-time 3D tools now drive film, architecture and the visual future far beyond games.", "https://www.epicgames.com", "Epic Games"),
+  E("MOMENT FACTORY", "art", 7.5, 7.0, 7.0, 8.5, 7.0, "Montreal multimedia studio founded in 2001, creating immersive environments and shows that fuse video, lighting, architecture and sound for audiences worldwide.", "https://momentfactory.com", "Moment Factory"),
+  E("UNITED VISUAL ARTISTS", "art", 8.0, 6.5, 7.5, 8.0, 7.0, "London art and design studio founded by Matt Clark in 2003, producing large-scale light sculptures and installations that explore perception, time and natural phenomena.", "https://uva.co.uk", "United Visual Artists"),
+  E("UNIVERSAL EVERYTHING", "art", 7.5, 6.5, 7.5, 8.5, 7.0, "Sheffield digital art studio founded by Matt Pyke, creating walking figures and responsive crowds shown everywhere from the V&A to giant public screens.", "https://www.universaleverything.com", "Universal Everything"),
+  E("SUPERBLUE", "art", 7.5, 7.0, 7.0, 8.0, 6.5, "American enterprise founded by Pace Gallery in 2020, building large-format experiential art centres where audiences step inside the work of artists such as teamLab.", "https://www.superblue.com", "Superblue"),
+  E("NAOSHIMA", "art", 8.5, 6.5, 8.0, 8.0, 8.0, "Japanese island in the Seto Inland Sea reborn as a contemporary art destination through the Benesse Art Site, home to Tadao Ando museums and works by James Turrell and Yayoi Kusama.", "https://benesse-artsite.jp", "Naoshima"),
+  E("SÓNAR", "culture", 8.0, 7.0, 7.5, 8.5, 8.0, "Barcelona festival of advanced music and creative technology, held since 1994, pairing club culture with a congress on art, science and the future.", "https://sonar.es", "Sónar"),
+  E("SPHERE", "culture", 7.5, 7.5, 6.0, 9.0, 7.5, "Las Vegas venue opened in 2023, a spherical theatre wrapped in the largest LED display on Earth, redefining live performance and immersive media.", "https://www.thespherevegas.com", "Sphere (venue)"),
+  E("MUTEK", "culture", 7.5, 6.5, 7.5, 7.5, 7.0, "Montreal festival founded in 2000, dedicated to electronic music and digital creativity, with sister editions across the Americas, Europe and Asia.", "https://mutek.org", "Mutek"),
+  E("NXT MUSEUM", "culture", 7.5, 6.0, 7.0, 7.5, 6.5, "Amsterdam museum opened in 2020, the first in the Netherlands devoted to new media art, presenting large-scale digital and sensory installations.", "https://nxtmuseum.com", "Nxt Museum"),
+  E("DESIGN MUSEUM", "culture", 7.5, 6.5, 8.0, 7.5, 8.0, "London museum of contemporary design and architecture, relocated to Kensington in 2016, whose exhibitions and Designer of the Year award shape design discourse.", "https://designmuseum.org", "Design Museum"),
+  E("180 STUDIOS", "culture", 7.5, 6.0, 7.0, 8.0, 6.5, "London cultural space on the Strand presenting ambitious digital art and design exhibitions, from immersive light and sound to major surveys of new media.", "https://180studios.com", "180 The Strand"),
+  E("ZKM", "culture", 8.0, 6.5, 8.0, 7.0, 7.0, "German Centre for Art and Media in Karlsruhe, founded in 1989, a leading museum and research institution at the meeting point of art, science and digital technology.", "https://zkm.de", "ZKM Center for Art and Media"),
 ];
 
 /* ---------- scoring ---------- */
@@ -239,6 +188,37 @@ const fmt = (n) => (Math.round(n * 10) / 10).toFixed(1);
 const mod = (n, m) => ((n % m) + m) % m;
 
 const RANKED_ALL = ENTRIES.map((e) => ({ ...e, score: score(e) })).sort((a, b) => b.score - a.score);
+
+/* Spread a list so the same sector rarely sits next to itself. Greedy: at each
+   step pick the highest-ranked remaining entry whose sector differs from the
+   previous one or two placed, falling back to best-available when forced. The
+   grid wraps with a row shift, so we also avoid matching the entry one row up. */
+function spreadBySector(list, rowShift) {
+  const pool = list.slice();
+  const result = [];
+  const recentlyBad = (sector, idx) => {
+    const prev = result[idx - 1];
+    const prev2 = result[idx - 2];
+    const up = idx - rowShift >= 0 ? result[idx - rowShift] : null;
+    return (
+      (prev && prev.sector === sector) ||
+      (prev2 && prev2.sector === sector) ||
+      (up && up.sector === sector)
+    );
+  };
+  while (pool.length) {
+    const idx = result.length;
+    let pick = pool.findIndex((e) => !recentlyBad(e.sector, idx));
+    if (pick === -1) {
+      // everything left clashes; take the one whose sector is least recent
+      const prev = result[idx - 1];
+      pick = pool.findIndex((e) => !prev || e.sector !== prev.sector);
+      if (pick === -1) pick = 0;
+    }
+    result.push(pool.splice(pick, 1)[0]);
+  }
+  return result;
+}
 
 const linkFor = (e) => e.url || `https://en.wikipedia.org/wiki/${encodeURIComponent(e.wiki.replace(/ /g, "_"))}`;
 const isWikiLink = (e) => !e.url;
@@ -740,6 +720,9 @@ function Method({ onClose, total }) {
           image show their sigil, a glyph drawn from their five scores.
         </p>
 
+        <p className="pf-body">
+          The index descends from a lineage of visionaries who painted the future as something worth reaching: the novelists Arthur C Clarke, Iain M Banks, Stanisław Lem and Olaf Stapledon, the planetary imagination of film-makers such as Christopher Nolan, and the Solarpunk movement, which insists that a bright, living and sustainable future is ours to build. They are not entries, because they cannot be partners, but they are the conviction beneath every tile.
+        </p>
         <p className="pf-mission">
           ART EXPANDS MEANING. SCIENCE EXPANDS REALITY. CULTURE IS HOW WE SHARE IDEAS.
         </p>
@@ -833,8 +816,10 @@ export default function PathfinderIndex() {
 
   const fieldList = useMemo(() => {
     let list = RANKED_ALL;
-    if (filter !== "all") list = list.filter((e) => e.sector === filter);
-    return list;
+    if (filter !== "all") return list.filter((e) => e.sector === filter);
+    const N = list.length;
+    const rowShift = [7, 11, 13, 17, 19, 5, 3].find((k) => N % k !== 0) || 1;
+    return spreadBySector(list, rowShift);
   }, [filter]);
 
   const openEntry = useCallback(
