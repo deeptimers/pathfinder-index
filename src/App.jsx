@@ -28,7 +28,7 @@ const slug = (name) =>
     .replace(/[^a-z0-9]+/g, "_")
     .replace(/^_+|_+$/g, "");
 
-const CLOUD_FOLDER = "pathfinder-images"; // set to "" if images sit at the root of the media library
+const CLOUD_FOLDER = ""; // images are at the root of the media library
 
 const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,c_fill,g_auto,w_640,h_800`;
 
