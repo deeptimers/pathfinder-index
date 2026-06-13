@@ -132,7 +132,6 @@ const ENTRIES = [
   E("MEOW WOLF", "art", 7.5, 7.0, 7.5, 8.0, 7.5, "American arts company that began as a Santa Fe collective in 2008, building permanent immersive art installations such as House of Eternal Return. Structured as a certified B Corporation.", "https://meowwolf.com", "Meow Wolf"),
 
   E("REFIK ANADOL", "art", 8.0, 7.5, 7.0, 9.0, 7.5, "Turkish-American media artist who turns vast datasets into living architectural canvases, and whose work Unsupervised filled MoMA's lobby with machine dreams of its own collection.", "https://refikanadol.com", "Refik Anadol"),
-  E("STUDIO DRIFT", "art", 8.0, 7.0, 7.5, 8.5, 7.5, "Amsterdam studio of Lonneke Gordijn and Ralph Nauta, choreographing drone swarms and kinetic sculptures that put technology in dialogue with nature.", "https://www.studiodrift.com", "Studio Drift"),
   E("RANDOM INTERNATIONAL", "art", 7.5, 6.5, 7.5, 8.5, 7.5, "London art collective best known for Rain Room, an indoor downpour that pauses wherever a visitor walks, exploring instinct, simulation and collective behaviour.", "https://www.random-international.com", "Random International"),
   E("MARSHMALLOW LASER FEAST", "art", 8.0, 6.5, 8.0, 8.0, 7.0, "London experiential art collective using virtual reality and breath-tracking to let audiences experience forests, oceans and the inside of the body.", "https://www.marshmallowlaserfeast.com", "Marshmallow Laser Feast"),
   E("SOMERSET HOUSE", "culture", 7.5, 7.0, 8.0, 7.5, 8.0, "Neoclassical London landmark turned creative community, home to hundreds of resident artists and makers, Somerset House Studios and a courtyard of fountains, film and ice.", "https://www.somersethouse.org.uk", "Somerset House"),
@@ -173,7 +172,6 @@ const ENTRIES = [
   E("SUPERBLUE", "art", 7.5, 7.0, 7.0, 8.0, 6.5, "American enterprise founded by Pace Gallery in 2020, building large-format experiential art centres where audiences step inside the work of artists such as teamLab.", "https://www.superblue.com", "Superblue"),
   E("NAOSHIMA", "art", 8.5, 6.5, 8.0, 8.0, 8.0, "Japanese island in the Seto Inland Sea reborn as a contemporary art destination through the Benesse Art Site, home to Tadao Ando museums and works by James Turrell and Yayoi Kusama.", "https://benesse-artsite.jp", "Naoshima"),
   E("SÓNAR", "culture", 8.0, 7.0, 7.5, 8.5, 8.0, "Barcelona festival of advanced music and creative technology, held since 1994, pairing club culture with a congress on art, science and the future.", "https://sonar.es", "Sónar"),
-  E("SPHERE", "culture", 7.5, 7.5, 6.0, 9.0, 7.5, "Las Vegas venue opened in 2023, a spherical theatre wrapped in the largest LED display on Earth, redefining live performance and immersive media.", "https://www.thespherevegas.com", "Sphere (venue)"),
   E("MUTEK", "culture", 7.5, 6.5, 7.5, 7.5, 7.0, "Montreal festival founded in 2000, dedicated to electronic music and digital creativity, with sister editions across the Americas, Europe and Asia.", "https://mutek.org", "Mutek"),
   E("NXT MUSEUM", "culture", 7.5, 6.0, 7.0, 7.5, 6.5, "Amsterdam museum opened in 2020, the first in the Netherlands devoted to new media art, presenting large-scale digital and sensory installations.", "https://nxtmuseum.com", "Nxt Museum"),
   E("DESIGN MUSEUM", "culture", 7.5, 6.5, 8.0, 7.5, 8.0, "London museum of contemporary design and architecture, relocated to Kensington in 2016, whose exhibitions and Designer of the Year award shape design discourse.", "https://designmuseum.org", "Design Museum"),
@@ -552,7 +550,9 @@ function InfiniteField({ list, cell, onOpen, reduced }) {
 
 /* ---------- info card ---------- */
 function InfoCard({ ranked, idx, onClose, onStep }) {
-  const entry = ranked[idx];
+  const entry = ranked[idx  E("SNOW PEAK", "art", 8.0, 6.5, 7.5, 8.0, 8.5, "Japanese outdoor brand founded in 1979, designing and manufacturing premium camping and wilderness gear with an ethos of craftsmanship, sustainability and the beauty of outdoor life.", "https://www.snowpeak.com", "Snow Peak"),
+  E("AEON", "culture", 8.5, 7.0, 8.5, 8.5, 8.0, "London digital magazine publishing long-form essays and beautifully-produced videos on science, philosophy, psychology and ideas, with a visual design and editorial rigour that treats complex thinking as an art form.", "https://aeon.co", "Aeon (magazine)"),
+];
   const tier = tierOf(entry.score);
   const isPF = tier.name === "PATHFINDER";
   const sector = SECTORS.find((s) => s.id === entry.sector);
