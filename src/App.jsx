@@ -219,6 +219,43 @@ const polar = (cx, cy, r, deg) => {
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
 };
 
+const IMG_RESOLVED = new Map(); // id -> resolved src, or null when all candidates failed
+
+function useEntryImage(entry) {
+  const id = entry.img || slug(entry.name);
+  const candidates = useMemo(() => imgCandidates(entry), [id]);
+  const [step, setStep] = useState(() => {
+    const r = IMG_RESOLVED.get(id);
+    if (r === null) return candidates.length; // known dead, go straight to sigil
+    if (r) return candidates.indexOf(r) >= 0 ? candidates.indexOf(r) : 0;
+    return 0;
+  });
+
+  useEffect(() => {
+    const r = IMG_RESOLVED.get(id);
+    if (r === null) setStep(candidates.length);
+    else if (r && candidates.indexOf(r) >= 0) setStep(candidates.indexOf(r));
+    else setStep(0);
+  }, [id, candidates]);
+
+  const onError = useCallback(() => {
+    setStep((s) => {
+      const next = s + 1;
+      if (next >= candidates.length) IMG_RESOLVED.set(id, null);
+      return next;
+    });
+  }, [id, candidates]);
+
+  const onLoad = useCallback(() => {
+    setStep((s) => {
+      if (s < candidates.length) IMG_RESOLVED.set(id, candidates[s]);
+      return s;
+    });
+  }, [id, candidates]);
+
+  return { src: step < candidates.length ? candidates[step] : null, onError, onLoad };
+}
+
 const arcPath = (cx, cy, r, a0, a1) => {
   const [sx, sy] = polar(cx, cy, r, a1);
   const [ex, ey] = polar(cx, cy, r, a0);
