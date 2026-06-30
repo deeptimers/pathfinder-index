@@ -59,23 +59,24 @@ const SECTORS = [
   { id: "culture", label: "CULTURE" },
 ];
 
-/* name, sector, chapter, description, pov, url, wiki title */
-const E = (name, sector, chapter, desc, pov, url, wiki, img) => ({
+/* name, sector, chapter, description, pov, url, wiki, instagram handle */
+const E = (name, sector, chapter, desc, pov, url, wiki, ig, img) => ({
   name, sector, chapter, desc, pov,
   url: url || null,
   wiki: wiki || name,
+  ig: ig || null,
   img: img || null,
 });
 
 const ENTRIES = [
   E("ANTHROPIC", "science", "aa", "American AI safety company founded in 2021 by former OpenAI researchers, and the developer of the Claude family of AI models. Its research focuses on making AI systems reliable, interpretable and steerable.", "Anthropic treats safety as architecture, codifying principles into the structures and research that make powerful AI trustworthy, ambition built to hold under pressure.", "https://www.anthropic.com", "Anthropic"),
   E("DEEPMIND", "science", "dt", "British-American AI laboratory founded in London in 2010 and now part of Google. Its AlphaFold system predicted the structures of over 200 million proteins, a landmark contribution to biology.", "Solving intelligence itself is the longest game there is, and DeepMind plays it patiently, treating the deepest scientific questions as the work of decades rather than product cycles.", "https://deepmind.google", "Google DeepMind"),
-  E("NVIDIA", "science", "aa", "American technology company founded in 1993 whose graphics processors became the standard hardware for training modern AI systems, making it one of the most valuable companies in the world.", "Nvidia built the foundational layer the entire AI era runs on, the architecture beneath everyone else's ambition, turning a hardware company into critical infrastructure.", "https://www.nvidia.com", "Nvidia"),
+  E("NVIDIA", "science", "aa", "American technology company founded in 1993 whose graphics processors became the standard hardware for training modern AI systems, making it one of the most valuable companies in the world.", "Nvidia built the foundational layer the entire AI era runs on, the architecture beneath everyone else's ambition, turning a hardware company into critical infrastructure.", "https://www.nvidia.com", "Nvidia", "nvidia"),
   E("HUGGING FACE", "science", "aa", "American-French company that hosts the leading open platform for sharing machine learning models and datasets. Its open-source libraries, including Transformers, are foundational to modern AI development.", "Hugging Face built the open architecture for modern machine learning, the shared structure on which a whole field's ambition now rests.", "https://huggingface.co", "Hugging Face"),
   E("CENTER FOR HUMANE TECHNOLOGY", "science", "oi", "American non-profit founded in 2018 by former tech insiders, behind the film The Social Dilemma, working to realign technology with humanity's wellbeing and counter the attention-extraction and manipulation built into modern platforms.", "The Center for Humane Technology refuses the techno-dystopian default, insisting that technology can serve human flourishing and doing the work to realise it, optimism as active defiance.", "https://www.humanetech.com", "Center for Humane Technology"),
   E("RUNWAY", "science", "aa", "New York research company building generative AI tools for video and film, including the Gen series of video models. Its tools have been used in feature films and music videos.", "Runway is building the tools that turn the ambition of a new visual era into something creators can actually use, architecture for the future of making images.", "https://runwayml.com", "Runway (company)"),
-  E("SPACEX", "science", "dt", "American aerospace company founded by Elon Musk in 2002 with the stated goal of making humanity multiplanetary. Developed the first orbital-class reusable rockets and operates the Starlink satellite network.", "Making life multiplanetary is the deepest time horizon a company can hold, an insurance policy on consciousness measured in centuries, and nobody dramatises the long arc of human ambition more vividly.", "https://www.spacex.com", "SpaceX"),
-  E("NASA", "science", "dt", "The United States' civil space agency, founded in 1958 and responsible for the Apollo Moon landings, the Space Shuttle, the James Webb Space Telescope and the Artemis programme returning humans to the Moon.", "NASA thinks in epochs, sending instruments on journeys that outlast the careers of the people who build them, and treating the expansion of human knowledge as a multigenerational duty.", "https://www.nasa.gov", "NASA"),
+  E("SPACEX", "science", "dt", "American aerospace company founded by Elon Musk in 2002 with the stated goal of making humanity multiplanetary. Developed the first orbital-class reusable rockets and operates the Starlink satellite network.", "Making life multiplanetary is the deepest time horizon a company can hold, an insurance policy on consciousness measured in centuries, and nobody dramatises the long arc of human ambition more vividly.", "https://www.spacex.com", "SpaceX", "spacex"),
+  E("NASA", "science", "dt", "The United States' civil space agency, founded in 1958 and responsible for the Apollo Moon landings, the Space Shuttle, the James Webb Space Telescope and the Artemis programme returning humans to the Moon.", "NASA thinks in epochs, sending instruments on journeys that outlast the careers of the people who build them, and treating the expansion of human knowledge as a multigenerational duty.", "https://www.nasa.gov", "NASA", "nasa"),
   E("ESA", "science", "dt", "The intergovernmental space agency of more than 20 European states, founded in 1975 and headquartered in Paris. Its work spans Earth observation, the Ariane launchers and deep-space science missions such as Juice and Gaia.", "ESA builds for missions that report back decades after launch, holding a patient, civilisational view of what it means to understand our place in the cosmos.", "https://www.esa.int", "European Space Agency"),
   E("ROCKET LAB", "science", "aa", "American-New Zealand launch company founded by Peter Beck in 2006, whose Electron became one of the most frequently flown small rockets. Now developing the larger reusable Neutron launcher.", "Rocket Lab built dependable, repeatable access to space, the unshowy architecture that turns orbital ambition into routine, scheduled reality.", "https://www.rocketlabusa.com", "Rocket Lab"),
   E("AXIOM SPACE", "science", "aa", "American company founded in 2016, building the first commercial space station to succeed the ISS, and flying private astronaut missions to open up access to low Earth orbit.", "Axiom is building the first commercial space station, the literal architecture for living and working in orbit once the agencies step back.", "https://www.axiomspace.com", "Axiom Space"),
@@ -90,13 +91,13 @@ const ENTRIES = [
   E("RECURSION", "science", "aa", "Salt Lake City biotechnology company founded in 2013, using automated experiments and machine learning to map cellular biology and discover drugs at industrial scale.", "Recursion built an industrial platform for biology, the architecture that turns drug discovery into something systematic, scalable and repeatable.", "https://www.recursion.com", "Recursion Pharmaceuticals"),
   E("MODERNA", "science", "aa", "American biotechnology company founded in 2010, a pioneer of messenger RNA medicine and maker of one of the principal COVID-19 vaccines. Developing mRNA treatments for cancer, flu and rare disease.", "Moderna treated mRNA as a platform rather than a product, foundational architecture for a new kind of medicine that can be pointed at problem after problem.", "https://www.modernatx.com", "Moderna"),
   E("COLOSSAL", "science", "oi", "Texas biosciences company founded in 2021, applying gene editing to de-extinction projects including the woolly mammoth, thylacine and dodo, alongside conservation biotechnology for endangered species.", "Colossal answers ecological grief with audacity, choosing to restore what was lost rather than mourn it, a defiantly hopeful vision of a wilder future.", "https://colossal.com", "Colossal Biosciences"),
-  E("PATAGONIA", "culture", "gl", "American outdoor clothing company founded by Yvon Chouinard in 1973. In 2022 ownership was transferred to a trust and non-profit so that all profits fund climate action, with Earth described as the company's only shareholder.", "Patagonia built a world rather than a campaign, and its refusal to bend on what it stands for turned a clothing company into a gravitational force that imitation only makes more singular.", "https://www.patagonia.com", "Patagonia, Inc."),
+  E("PATAGONIA", "culture", "gl", "American outdoor clothing company founded by Yvon Chouinard in 1973. In 2022 ownership was transferred to a trust and non-profit so that all profits fund climate action, with Earth described as the company's only shareholder.", "Patagonia built a world rather than a campaign, and its refusal to bend on what it stands for turned a clothing company into a gravitational force that imitation only makes more singular.", "https://www.patagonia.com", "Patagonia, Inc.", "patagonia"),
   E("COMMONWEALTH FUSION", "science", "dt", "MIT spin-out founded in 2018, building SPARC, a compact tokamak intended to demonstrate net-energy fusion. Backed by some of the largest private investment in fusion energy.", "Fusion is the ultimate long horizon, the energy source of the next century, and Commonwealth is doing the patient work of building it before the market is ready to reward it.", "https://cfs.energy", "Commonwealth Fusion Systems"),
   E("THE OCEAN CLEANUP", "science", "oi", "Dutch non-profit founded by Boyan Slat in 2013, developing systems to remove plastic from the Great Pacific Garbage Patch and to intercept it in rivers before it reaches the sea.", "The Ocean Cleanup refuses to accept a ruined ocean as the price of progress, building real machines toward a visibly better future, optimism made tangible.", "https://theoceancleanup.com", "The Ocean Cleanup"),
   E("ØRSTED", "science", "oi", "Danish energy company, formerly the oil and gas firm DONG Energy, which transformed itself into the world's largest developer of offshore wind power.", "Ørsted reinvented itself from fossil fuels to offshore wind, living proof that even the heaviest legacy can choose a positive future and build it.", "https://orsted.com", "Ørsted (company)"),
   E("CLIMEWORKS", "science", "oi", "Swiss company founded in 2009, operating the world's first commercial direct air capture plants in Iceland, which remove carbon dioxide from the atmosphere for permanent storage underground.", "Climeworks insists the carbon story can still be rewritten, pulling CO2 from the air as an act of defiant, engineered optimism about the planet's future.", "https://climeworks.com", "Climeworks"),
   E("FORM ENERGY", "science", "oi", "American battery company founded in 2017, developing iron-air batteries that can store energy for several days at a time, aimed at making renewable electricity grids reliable.", "Form Energy is building the long-duration storage that makes a fully renewable grid believable, the unshowy engineering behind a genuinely hopeful energy future.", "https://formenergy.com", "Form Energy"),
-  E("TESLA", "science", "oi", "American electric vehicle and energy company led by Elon Musk, which brought EVs to the mass market and builds grid-scale battery storage and solar products.", "Tesla made the clean future desirable rather than dutiful, accelerating the energy transition by proving that optimism about the planet could also be aspirational.", "https://www.tesla.com", "Tesla, Inc."),
+  E("TESLA", "science", "oi", "American electric vehicle and energy company led by Elon Musk, which brought EVs to the mass market and builds grid-scale battery storage and solar products.", "Tesla made the clean future desirable rather than dutiful, accelerating the energy transition by proving that optimism about the planet could also be aspirational.", "https://www.tesla.com", "Tesla, Inc.", "tesla"),
   E("HELION", "science", "dt", "Washington-state fusion company founded in 2013, developing a pulsed fusion generator. Holds a power purchase agreement with Microsoft, the first of its kind for fusion electricity.", "Helion is racing toward limitless clean energy on a timescale most investors cannot stomach, a bet whose payoff is measured in the transformation of civilisation itself.", "https://www.helionenergy.com", "Helion Energy"),
   E("INTERFACE", "science", "oi", "American modular flooring manufacturer that became a landmark of industrial sustainability under founder Ray Anderson, completing its Mission Zero programme in 2019 and now selling carbon-negative carpet tiles.", "Interface set out to prove a company could give more to the planet than it takes, a defiantly positive vision of industry it has spent decades making real.", "https://www.interface.com", "Interface, Inc."),
   E("ECOSIA", "science", "oi", "Berlin-based search engine founded in 2009 that uses its advertising profits to fund tree planting, with more than 200 million trees planted across the world to date.", "Ecosia turned an everyday action into reforestation, a quietly defiant insistence that the tools we already use can be redirected toward a better future.", "https://www.ecosia.org", "Ecosia"),
@@ -116,7 +117,7 @@ const ENTRIES = [
   E("PERIMETER INSTITUTE", "science", "dt", "Independent Canadian centre for theoretical physics founded in 1999, probing quantum gravity and the foundations of the universe while sharing its training freely online.", "Perimeter chases the deepest questions in theoretical physics, the kind whose answers may take generations to arrive and centuries to apply.", "https://perimeterinstitute.ca", "Perimeter Institute"),
   E("TATE MODERN", "culture", "cg", "Britain's national museum of modern and contemporary art, opened in a converted Bankside power station in 2000 and consistently among the most visited art museums in the world.", "Tate Modern is cultural infrastructure on a civic scale, a free and open conduit that lets contemporary art flow to millions rather than the few.", "https://www.tate.org.uk", "Tate Modern"),
   E("TEAMLAB", "art", "gl", "Tokyo art collective founded in 2001, creating immersive digital installations and the permanent Borderless and Planets museums, which draw millions of visitors a year.", "teamLab does not advertise, it draws pilgrims, the sheer depth and originality of its immersive worlds creating a field of attraction that pulls millions toward something they have never seen.", "https://www.teamlab.art", "TeamLab (art collective)"),
-  E("A24", "art", "gl", "Independent New York film studio founded in 2012, producer and distributor of Moonlight, Everything Everywhere All at Once and Past Lives, and winner of multiple Best Picture Oscars.", "A24 became gravitational by trusting taste over formula, building a brand so clear that audiences now follow the logo itself, proof that conviction outperforms chasing the market.", "https://a24films.com", "A24"),
+  E("A24", "art", "gl", "Independent New York film studio founded in 2012, producer and distributor of Moonlight, Everything Everywhere All at Once and Past Lives, and winner of multiple Best Picture Oscars.", "A24 became gravitational by trusting taste over formula, building a brand so clear that audiences now follow the logo itself, proof that conviction outperforms chasing the market.", "https://a24films.com", "A24", "a24"),
   E("MOMA", "culture", "cg", "The Museum of Modern Art in New York, founded in 1929, holds one of the most influential collections of modern and contemporary art in the world.", "MoMA built the grid for modern art, shaping how the world understands it and keeping that conversation flowing across generations.", "https://www.moma.org", "Museum of Modern Art"),
   E("V&A", "culture", "cg", "London's Victoria and Albert Museum, founded in 1852, is the world's largest museum of applied arts, decorative arts and design, with a collection spanning 5,000 years.", "The V&A is a vast, generous conduit for design and creativity, infrastructure that lets the story of human making flow to everyone who walks in.", "https://www.vam.ac.uk", "Victoria and Albert Museum"),
   E("SERPENTINE", "culture", "cg", "Pair of contemporary art galleries in London's Kensington Gardens, known for free exhibitions, a pioneering arts and technology programme and the annual Serpentine Pavilion architecture commission.", "The Serpentine powers the flow of new ideas in art and architecture, a small institution that punches far above its weight as a conductor of culture.", "https://www.serpentinegalleries.org", "Serpentine Galleries"),
@@ -134,7 +135,7 @@ const ENTRIES = [
   E("NINJA TUNE", "culture", "cg", "Independent London label founded by Coldcut in 1990, an early leader on sustainability in music with a solar-powered headquarters and support for the Music Climate Pact.", "Ninja Tune has spent decades as a conduit for independent music, a label that powers the flow of new sound rather than chasing the centre.", "https://ninjatune.net", "Ninja Tune"),
   E("NTS RADIO", "culture", "cg", "Independent online radio station founded in Hackney in 2011, broadcasting from London, Manchester, Los Angeles and Shanghai with thousands of resident hosts and no playlists.", "NTS is a global grid for music discovery, an open platform that connects scenes and selectors across the world and keeps culture moving.", "https://www.nts.live", "NTS Radio"),
   E("BANDCAMP", "culture", "cg", "Online music platform founded in 2008 where fans buy directly from artists, paying out the large majority of every sale; its Bandcamp Fridays have channelled hundreds of millions of dollars to musicians.", "Bandcamp built the fairest pipe between artists and listeners, infrastructure that lets musicians thrive on their own terms and culture flow without a gatekeeper taking the current.", "https://bandcamp.com", "Bandcamp"),
-  E("APPLE", "art", "gl", "American technology company founded in 1976, maker of the iPhone and Mac and the company that defined modern consumer hardware design. Aims for carbon neutrality across all its products by 2030.", "Apple never chases attention, it commands it, decades of refusing to compromise on the meeting of art and technology building a field of attraction so strong the industry orbits it.", "https://www.apple.com", "Apple Inc."),
+  E("APPLE", "art", "gl", "American technology company founded in 1976, maker of the iPhone and Mac and the company that defined modern consumer hardware design. Aims for carbon neutrality across all its products by 2030.", "Apple never chases attention, it commands it, decades of refusing to compromise on the meeting of art and technology building a field of attraction so strong the industry orbits it.", "https://www.apple.com", "Apple Inc.", "apple"),
   E("TEENAGE ENGINEERING", "art", "gl", "Swedish electronics company founded in Stockholm in 2007, designing playful audio hardware such as the OP-1 synthesiser and collaborating with brands from IKEA to Nothing.", "Teenage Engineering answers to nobody but its own taste, and that creative sovereignty, executed with obsessive craft, is precisely what makes its work magnetic.", "https://teenage.engineering", "Teenage Engineering"),
   E("IKEA", "art", "gl", "Swedish furniture retailer founded by Ingvar Kamprad in 1943, whose flat-pack democratic design made good furniture affordable worldwide. Investing heavily in circular and renewable operations.", "IKEA made considered design gravitational at planetary scale, building a world so coherent and so clearly its own that it became the default rather than a competitor.", "https://www.ikea.com", "IKEA"),
   E("ABLETON", "art", "aa", "Berlin music software company founded in 1999 by musicians, maker of Ableton Live, a digital audio workstation built for performance as much as production, and the Push instrument.", "Ableton built the foundational architecture of modern music-making, the structure beneath countless artists' ambition rather than just another instrument.", "https://www.ableton.com", "Ableton"),
@@ -210,11 +211,6 @@ function spreadBySector(list, rowShift) {
 
 const mod = (n, m) => ((n % m) + m) % m;
 
-const polar = (cx, cy, r, deg) => {
-  const a = (deg * Math.PI) / 180;
-  return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
-};
-
 const IMG_RESOLVED = new Map(); // id -> resolved src, or null when all candidates failed
 
 function useEntryImage(entry) {
@@ -252,85 +248,6 @@ function useEntryImage(entry) {
   return { src: step < candidates.length ? candidates[step] : null, onError, onLoad };
 }
 
-const arcPath = (cx, cy, r, a0, a1) => {
-  const [sx, sy] = polar(cx, cy, r, a1);
-  const [ex, ey] = polar(cx, cy, r, a0);
-  const large = a1 - a0 <= 180 ? 0 : 1;
-  return `M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${r} ${r} 0 ${large} 0 ${ex.toFixed(2)} ${ey.toFixed(2)}`;
-};
-
-const Sigil = memo(function Sigil({ entry, size = 88, animate = false, tone }) {
-  const col = tone || "currentColor";
-  const ch = entry.chapter;
-  const cls = animate ? "pf-sigil pf-sigil-anim" : "pf-sigil";
-  let body;
-  if (ch === "dt") {
-    const rings = [14, 22, 30, 38];
-    body = (
-      <>
-        {rings.map((r, i) => (
-          <circle key={i} cx="50" cy="50" r={r} fill="none" stroke={col} strokeWidth="1.6" opacity={0.3 + i * 0.16} />
-        ))}
-        <circle cx="50" cy="20" r="3.2" fill={col} />
-        <circle cx="50" cy="50" r="2.4" fill={col} />
-      </>
-    );
-  } else if (ch === "gl") {
-    const arcs = [18, 27, 36];
-    body = (
-      <>
-        {arcs.map((r, i) => (
-          <path key={i} d={arcPath(50, 50, r, 60 + i * 18, 300 - i * 18)} fill="none" stroke={col} strokeWidth="1.6" opacity={0.3 + i * 0.2} />
-        ))}
-        <circle cx="50" cy="50" r="6" fill={col} />
-      </>
-    );
-  } else if (ch === "oi") {
-    const rays = [];
-    for (let i = 0; i < 7; i++) {
-      const a = -180 + i * 30;
-      const [x1, y1] = polar(50, 62, 16, a);
-      const [x2, y2] = polar(50, 62, 26, a);
-      rays.push(<line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={col} strokeWidth="1.6" opacity="0.85" />);
-    }
-    body = (
-      <>
-        {rays}
-        <path d="M 38 62 A 12 12 0 0 1 62 62" fill="none" stroke={col} strokeWidth="2" />
-        <line x1="22" y1="62" x2="78" y2="62" stroke={col} strokeWidth="1.6" />
-      </>
-    );
-  } else if (ch === "cg") {
-    const nodes = [[50, 18], [24, 44], [76, 44], [34, 78], [66, 78]];
-    const edges = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 4], [3, 4]];
-    body = (
-      <>
-        {edges.map((e, i) => (
-          <line key={"e" + i} x1={nodes[e[0]][0]} y1={nodes[e[0]][1]} x2={nodes[e[1]][0]} y2={nodes[e[1]][1]} stroke={col} strokeWidth="1.3" opacity="0.5" />
-        ))}
-        {nodes.map((n, i) => (
-          <circle key={"n" + i} cx={n[0]} cy={n[1]} r="3.4" fill={col} />
-        ))}
-      </>
-    );
-  } else {
-    const ys = [32, 42, 52, 62, 72];
-    body = (
-      <>
-        {ys.map((y, i) => {
-          const wln = 12 + i * 5;
-          return <line key={i} x1={50 - wln} y1={y} x2={50 + wln} y2={y} stroke={col} strokeWidth="2" opacity={0.4 + i * 0.12} />;
-        })}
-        <line x1="50" y1="28" x2="50" y2="76" stroke={col} strokeWidth="1.3" opacity="0.5" />
-      </>
-    );
-  }
-  return (
-    <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true" className={cls}>
-      {body}
-    </svg>
-  );
-});
 
 
 /* ---------- tile ---------- */
@@ -363,10 +280,10 @@ const Tile = memo(function Tile({ entry, w, h, onOpen }) {
             onError={onError}
           />
         ) : (
-          <Sigil entry={entry} size={Math.round(w * 0.46)} />
+          <span className="pf-tile-fallback">{entry.name}</span>
         )}
       </span>
-      <span className="pf-tile-name">{entry.name}</span>
+      {src && <span className="pf-tile-name">{entry.name}</span>}
     </button>
   );
 });
@@ -585,7 +502,7 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
         onClick={(e) => e.stopPropagation()}
         key={entry.name}
       >
-        <div className="pf-card-media">
+        <div className={`pf-card-media ${src ? "" : "pf-card-media-empty"}`}>
           {src ? (
             <>
               <img
@@ -598,11 +515,7 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
               />
               <span className="pf-card-mediascrim" />
             </>
-          ) : (
-            <div className="pf-card-sigilbox">
-              <Sigil entry={entry} size={120} animate tone="#FFFFFF" />
-            </div>
-          )}
+          ) : null}
           <button className="pf-x pf-card-x" onClick={onClose} aria-label="Close">×</button>
           <span className="pf-card-counter pf-mono">{String(idx + 1).padStart(2, "0")} / {ranked.length}</span>
         </div>
@@ -613,25 +526,18 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
           </div>
           <h2 className="pf-card-name">{entry.name}</h2>
 
-          <div className="pf-card-chaprow">
-            <div className="pf-card-chapwrap">
-              <div className="pf-card-chaplabel">PATH</div>
-              <div className="pf-card-chap">{chapter ? chapter.name : ""}</div>
-              <div className="pf-card-chapline">{chapter ? chapter.line : ""}</div>
-            </div>
-            {src && (
-              <div className="pf-card-minisigil">
-                <Sigil entry={entry} size={84} animate tone="#FFFFFF" />
-              </div>
-            )}
-          </div>
-
           {entry.pov && <p className="pf-card-pov">{entry.pov}</p>}
+          {chapter && <div className="pf-card-chaptag pf-mono">{chapter.name}</div>}
           <p className="pf-card-note">{entry.desc}</p>
 
           <a className="pf-link" href={href} target="_blank" rel="noopener noreferrer">
             {wikiLink ? "READ ON WIKIPEDIA" : "VISIT SITE"} <span aria-hidden="true">↗</span>
           </a>
+          {entry.ig && (
+            <a className="pf-link" href={`https://www.instagram.com/${entry.ig}/`} target="_blank" rel="noopener noreferrer">
+              INSTAGRAM <span aria-hidden="true">↗</span>
+            </a>
+          )}
 
           <div className="pf-detail-nav">
             <button className="pf-navbtn" onClick={() => onStep(-1)}>← PREV</button>
@@ -728,7 +634,6 @@ function Ledger({ ranked, query, setQuery, onOpen }) {
                 <span className="pf-row-name">{e.name}</span>
                 <span className="pf-row-sector">{sector ? sector.label : ""}</span>
               </span>
-              <span className="pf-row-glyph"><Sigil entry={e} size={20} /></span>
             </button>
           </Fragment>
         );
@@ -1212,4 +1117,14 @@ const CSS = `
 .pf-card-chapline { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.6); margin-top: 10px; max-width: 42ch; }
 .pf-ledger-group { padding: 24px 4px 8px; color: rgba(255,255,255,0.5); }
 .pf-row-glyph { color: #fff; opacity: 0.55; flex: none; display: inline-flex; }
+
+/* ---------- imageless + chapter tag ---------- */
+.pf-tile-fallback {
+  font-family: 'Druk Wide', 'Druk Wide Web', 'Archivo', sans-serif;
+  font-stretch: 125%; font-weight: 900; text-transform: uppercase;
+  font-size: clamp(13px, 2.1vw, 20px); line-height: 1.05; letter-spacing: 0.01em;
+  color: rgba(255,255,255,0.92); text-align: center; padding: 10px; overflow-wrap: break-word;
+}
+.pf-card-media-empty { height: 96px; background: linear-gradient(180deg, #161616, #000); }
+.pf-card-chaptag { margin: 0 0 16px; color: rgba(255,255,255,0.5); }
 `;
