@@ -264,9 +264,6 @@ const Tile = memo(function Tile({ entry, w, h, onOpen }) {
       }}
       aria-label={`${entry.name}, ${chapter ? chapter.name : ""}`}
     >
-      <span className="pf-tile-top">
-        <span className="pf-tile-sector">{chapter ? chapter.short : ""}</span>
-      </span>
       <span className="pf-photo">
         {src ? (
           <img
@@ -523,11 +520,11 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
         <div className="pf-card-body">
           <div className="pf-detail-meta">
             <span className="pf-mono">{sector ? sector.label : ""}</span>
+            {chapter && <span className="pf-mono pf-detail-chapter">{chapter.name}</span>}
           </div>
           <h2 className="pf-card-name">{entry.name}</h2>
 
           {entry.pov && <p className="pf-card-pov">{entry.pov}</p>}
-          {chapter && <div className="pf-card-chaptag pf-mono">{chapter.name}</div>}
           <p className="pf-card-note">{entry.desc}</p>
 
           <a className="pf-link" href={href} target="_blank" rel="noopener noreferrer">
@@ -1126,5 +1123,5 @@ const CSS = `
   color: rgba(255,255,255,0.92); text-align: center; padding: 10px; overflow-wrap: break-word;
 }
 .pf-card-media-empty { height: 96px; background: linear-gradient(180deg, #161616, #000); }
-.pf-card-chaptag { margin: 0 0 16px; color: rgba(255,255,255,0.5); }
+.pf-detail-chapter { color: rgba(255,255,255,0.9); }
 `;
