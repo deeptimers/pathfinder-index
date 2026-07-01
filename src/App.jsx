@@ -474,6 +474,7 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
   const entry = ranked[idx];
   const chapter = CHAPTER[entry.chapter];
   const sector = SECTORS.find((s) => s.id === entry.sector);
+  const topMeta = [sector ? sector.label : null, chapter ? chapter.name : null].filter(Boolean).join("  ·  ");
   const { src, onError, onLoad } = useEntryImage(entry);
 
   useEffect(() => {
@@ -515,17 +516,14 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
           ) : null}
           <button className="pf-x pf-card-x" onClick={onClose} aria-label="Close">×</button>
           <span className="pf-card-counter pf-mono">{String(idx + 1).padStart(2, "0")} / {ranked.length}</span>
+          <span className="pf-card-topmeta pf-mono">{topMeta}</span>
         </div>
 
         <div className="pf-card-body">
-          <div className="pf-detail-meta">
-            <span className="pf-mono">{sector ? sector.label : ""}</span>
-            {chapter && <span className="pf-mono pf-detail-chapter">{chapter.name}</span>}
-          </div>
           <h2 className="pf-card-name">{entry.name}</h2>
 
-          {entry.pov && <p className="pf-card-pov">{entry.pov}</p>}
           <p className="pf-card-note">{entry.desc}</p>
+          {entry.pov && <p className="pf-card-pov">{entry.pov}</p>}
 
           <a className="pf-link" href={href} target="_blank" rel="noopener noreferrer">
             {wikiLink ? "READ ON WIKIPEDIA" : "VISIT SITE"} <span aria-hidden="true">↗</span>
@@ -975,7 +973,8 @@ const CSS = `
 
 .pf-card-media { position: relative; height: clamp(300px, 48vh, 480px); flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .pf-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pf-card-mediascrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%); pointer-events: none; }
+.pf-card-mediascrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55)); pointer-events: none; }
+.pf-card-topmeta { position: absolute; top: 12px; left: 14px; right: 46px; z-index: 3; color: #fff; font-size: 10px; letter-spacing: 0.16em; line-height: 1.35; text-shadow: 0 1px 10px rgba(0,0,0,0.7); }
 .pf-card-sigilbox { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; color: #fff; background: #000; }
 .pf-card-x { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); }
 .pf-card-counter { position: absolute; left: 12px; bottom: 10px; }
