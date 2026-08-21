@@ -1239,8 +1239,18 @@ const CSS = `
 
 /* desktop card: portrait image left, content right (must stay last in cascade) */
 @media (min-width: 861px) {
-  .pf-card { flex-direction: row; max-width: 980px; }
-  .pf-card-media { width: 42%; min-width: 42%; aspect-ratio: auto; height: auto; max-height: none; min-height: 500px; }
-  .pf-card-body { flex: 1; min-width: 0; padding: 26px 26px 28px; }
+  .pf-card { flex-direction: row; max-width: 1040px; }
+  .pf-card-media { width: 42%; min-width: 42%; aspect-ratio: 4 / 5; height: auto; max-height: none; min-height: 0; }
+  .pf-card-body {
+    flex: 1; min-width: 0; display: flex; flex-direction: column;
+    padding: 34px 38px 34px;
+  }
+  .pf-card-name { font-size: clamp(30px, 3.4vw, 44px); margin: 6px 0 22px; }
+  .pf-card-pov { font-size: 17px; line-height: 1.6; margin: 0 0 18px; }
+  .pf-card-note { font-size: 14px; line-height: 1.7; margin: 0 0 28px; }
+  /* text breathes at the top, actions anchor to the bottom */
+  .pf-card-note { margin-bottom: auto; padding-bottom: 28px; }
+  .pf-card-body .pf-link { padding: 15px 16px; }
+  .pf-detail-nav { margin-top: 12px; }
 }
 `;
