@@ -30,7 +30,7 @@ const slug = (name) =>
 
 const CLOUD_FOLDER = ""; // images are at the root of the media library
 
-const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,c_fill,g_auto,w_640,h_800`;
+const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1500,dpr_auto`;
 
 /* Each entry tries its image inside the folder first, then at the root,
    then falls back to its sigil. */
@@ -642,6 +642,93 @@ function Ledger({ ranked, query, setQuery, onOpen }) {
 
 
 /* ============================================================ */
+function Submit({ onClose }) {
+  const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  const [state, setState] = useState("idle"); /* idle | busy | sent | error */
+  const [errMsg, setErrMsg] = useState("");
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  const valid = name.trim().length >= 2 && /^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/i.test(url.trim());
+  const send = async () => {
+    if (!valid || state === "busy") return;
+    setState("busy");
+    setErrMsg("");
+    try {
+      const r = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), url: url.trim() }),
+      });
+      if (r.ok) {
+        setState("sent");
+      } else {
+        const d = await r.json().catch(() => ({}));
+        setErrMsg(d.error || "Submission failed. Try again shortly.");
+        setState("error");
+      }
+    } catch (e) {
+      setErrMsg("Submission failed. Try again shortly.");
+      setState("error");
+    }
+  };
+  return (
+    <div className="pf-overlay" role="dialog" aria-modal="true" aria-label="Submit a pathfinder">
+      <div className="pf-overlay-bar">
+        <span className="pf-mono">SUBMIT A PATHFINDER</span>
+        <button className="pf-x" onClick={onClose} aria-label="Close">×</button>
+      </div>
+      <div className="pf-detail-scroll pf-sub">
+        {state === "sent" ? (
+          <>
+            <h2 className="pf-method-title">RECEIVED</h2>
+            <p className="pf-body">
+              Thank you. Every submission is reviewed against the five chapters, and the strongest join the index as it
+              is rebalanced. Inclusion is the verdict.
+            </p>
+            <button className="pf-sub-btn" onClick={onClose}>CLOSE</button>
+          </>
+        ) : (
+          <>
+            <h2 className="pf-method-title">WHO ELSE IS BUILDING THE FUTURE?</h2>
+            <p className="pf-body">
+              The index is curated, but it is not closed. If you know an organisation that embodies one of the five
+              chapters, name it below and we will read it against the manifesto.
+            </p>
+            <label className="pf-mono pf-sub-label" htmlFor="pf-sub-name">BRAND OR ORGANISATION</label>
+            <input
+              id="pf-sub-name"
+              className="pf-sub-input"
+              value={name}
+              maxLength={120}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="NAME"
+            />
+            <label className="pf-mono pf-sub-label" htmlFor="pf-sub-url">WEBSITE</label>
+            <input
+              id="pf-sub-url"
+              className="pf-sub-input"
+              value={url}
+              maxLength={300}
+              inputMode="url"
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="HTTPS://"
+              onKeyDown={(e) => { if (e.key === "Enter") send(); }}
+            />
+            <button className="pf-sub-btn" onClick={send} disabled={!valid || state === "busy"}>
+              {state === "busy" ? "SENDING…" : "SUBMIT"}
+            </button>
+            {state === "error" && <p className="pf-sub-err">{errMsg}</p>}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function PathfinderIndex() {
   const reduced =
     typeof window !== "undefined" &&
@@ -653,6 +740,7 @@ export default function PathfinderIndex() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(null); // index into ranked
   const [method, setMethod] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 390);
 
   useEffect(() => {
@@ -731,12 +819,14 @@ export default function PathfinderIndex() {
           <span className="pf-wm-sub">BY DEEP TIME</span>
         </div>
         <div className="pf-hud-controls">
-          <span className="pf-mono pf-count">{fieldList.length} ENTRIES</span>
           <div className="pf-toggle" role="tablist" aria-label="View">
             <button className={`pf-toggle-btn ${view === "field" ? "on" : ""}`} onClick={() => setView("field")} role="tab" aria-selected={view === "field"}>FIELD</button>
             <button className={`pf-toggle-btn ${view === "index" ? "on" : ""}`} onClick={() => setView("index")} role="tab" aria-selected={view === "index"}>INDEX</button>
           </div>
-          <button className="pf-method-btn" onClick={() => setMethod(true)}>METHOD</button>
+          <div className="pf-hud-btns">
+            <button className="pf-method-btn" onClick={() => setSubmitOpen(true)}>SUBMIT</button>
+            <button className="pf-method-btn" onClick={() => setMethod(true)}>METHOD</button>
+          </div>
         </div>
       </header>
 
@@ -768,6 +858,7 @@ export default function PathfinderIndex() {
         <InfoCard ranked={ranked} idx={selected} onClose={() => setSelected(null)} onStep={step} />
       )}
       {method && <Method onClose={() => setMethod(false)} total={RANKED_ALL.length} />}
+      {submitOpen && <Submit onClose={() => setSubmitOpen(false)} />}
     </div>
   );
 }
@@ -875,7 +966,7 @@ const CSS = `
 }
 .pf-wm-sub { margin-top: 5px; font-size: 8px; letter-spacing: 0.28em; color: rgba(255,255,255,0.5); }
 .pf-hud-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.pf-count { font-size: 9px; }
+.pf-hud-btns { display: flex; gap: 8px; }
 .pf-toggle { display: flex; border: 1px solid rgba(255,255,255,0.25); }
 .pf-toggle-btn {
   background: transparent; color: rgba(255,255,255,0.55); border: none; cursor: pointer;
@@ -890,6 +981,22 @@ const CSS = `
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 .pf-method-btn:hover { color: #fff; border-color: #fff; }
+.pf-sub { max-width: 660px; }
+.pf-sub-label { display: block; margin: 20px 0 8px; }
+.pf-sub-input {
+  width: 100%; max-width: 440px; display: block; background: #000;
+  border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: inherit;
+  font-size: 13px; letter-spacing: 0.08em; padding: 12px 13px;
+}
+.pf-sub-input::placeholder { color: rgba(255,255,255,0.3); }
+.pf-sub-input:focus { outline: none; border-color: var(--signal); }
+.pf-sub-btn {
+  margin-top: 24px; background: var(--ikb); border: 1px solid var(--ikb); color: #fff; cursor: pointer;
+  font-family: inherit; font-size: 11px; letter-spacing: 0.16em; padding: 13px 24px; text-transform: uppercase;
+}
+.pf-sub-btn:hover:not(:disabled) { background: var(--signal); border-color: var(--signal); }
+.pf-sub-btn:disabled { opacity: 0.5; cursor: default; }
+.pf-sub-err { color: #FF5A5A; font-size: 13px; margin-top: 12px; }
 
 .pf-hud-bottom { position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; }
 .pf-filters {
