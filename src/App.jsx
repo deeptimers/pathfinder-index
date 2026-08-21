@@ -31,7 +31,7 @@ const slug = (name) =>
 const CLOUD_FOLDER = ""; // images are at the root of the media library
 
 const CLOUD_TRANSFORM_TILE = "f_auto,q_auto,c_fill,g_auto,w_500,h_625";
-const CLOUD_TRANSFORM_CARD = "f_auto,q_auto:good,c_fill,g_auto,w_1600,h_1200";
+const CLOUD_TRANSFORM_CARD = "f_auto,q_auto,c_fill,g_auto,w_800,h_1000";
 const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${CLOUD_TRANSFORM_TILE}`;
 /* The card reuses whichever tile URL resolved, swapped to the high-res transform. */
 const toCardRes = (url) => (url ? url.replace(CLOUD_TRANSFORM_TILE, CLOUD_TRANSFORM_CARD) : url);
@@ -504,7 +504,10 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
         onClick={(e) => e.stopPropagation()}
         key={entry.name}
       >
-        <div className={`pf-card-media ${src ? "" : "pf-card-media-empty"}`}>
+        <div
+          className={`pf-card-media ${src ? "" : "pf-card-media-empty"}`}
+          style={src ? { backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+        >
           {src ? (
             <>
               <img
@@ -1080,9 +1083,14 @@ const CSS = `
   animation: pf-rise 260ms cubic-bezier(.2,.8,.2,1);
 }
 @keyframes pf-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 861px) {
+  .pf-card { flex-direction: row; max-width: 980px; }
+  .pf-card-media { width: 42%; min-width: 42%; aspect-ratio: auto; height: auto; max-height: none; min-height: 500px; }
+  .pf-card-body { flex: 1; min-width: 0; padding: 26px 26px 28px; }
+}
 @keyframes pf-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
-.pf-card-media { position: relative; height: clamp(300px, 48vh, 480px); flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.pf-card-media { position: relative; width: 100%; aspect-ratio: 4 / 5; height: auto; max-height: 56vh; flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .pf-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pf-card-mediascrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55)); pointer-events: none; }
 .pf-card-topmeta { position: absolute; top: 12px; left: 14px; right: 46px; z-index: 3; color: #fff; font-size: 10px; letter-spacing: 0.16em; line-height: 1.35; text-shadow: 0 1px 10px rgba(0,0,0,0.7); }
@@ -1202,7 +1210,6 @@ const CSS = `
   .pf-tile-name { font-size: 13px; }
   .pf-ticker { height: 30px; }
   .pf-ticker-seg { font-size: 10px; }
-  .pf-card-media { height: clamp(240px, 42vh, 360px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .pf-ticker-track { animation: none; }
