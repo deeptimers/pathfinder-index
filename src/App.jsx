@@ -30,7 +30,11 @@ const slug = (name) =>
 
 const CLOUD_FOLDER = ""; // images are at the root of the media library
 
-const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1500,dpr_auto`;
+const CLOUD_TRANSFORM_TILE = "f_auto,q_auto,c_fill,g_auto,w_500,h_625";
+const CLOUD_TRANSFORM_CARD = "f_auto,q_auto:good,c_fill,g_auto,w_1600,h_1200";
+const CLOUD_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${CLOUD_TRANSFORM_TILE}`;
+/* The card reuses whichever tile URL resolved, swapped to the high-res transform. */
+const toCardRes = (url) => (url ? url.replace(CLOUD_TRANSFORM_TILE, CLOUD_TRANSFORM_CARD) : url);
 
 /* Each entry tries its image inside the folder first, then at the root,
    then falls back to its sigil. */
@@ -505,7 +509,7 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
             <>
               <img
                 className="pf-card-img"
-                src={src}
+                src={toCardRes(src)}
                 alt={entry.name}
                 onLoad={onLoad}
                 onError={onError}
@@ -693,10 +697,10 @@ function Submit({ onClose }) {
           </>
         ) : (
           <>
-            <h2 className="pf-method-title">WHO ELSE IS BUILDING THE FUTURE?</h2>
+            <h2 className="pf-method-title">WHO ARE YOUR PATHFINDERS?</h2>
             <p className="pf-body">
-              The index is curated, but it is not closed. If you know an organisation that embodies one of the five
-              chapters, name it below and we will read it against the manifesto.
+              The Pathfinder Index is an open source, collaboratively curated resource. Tell us who you think deserves
+              Pathfinder status.
             </p>
             <label className="pf-mono pf-sub-label" htmlFor="pf-sub-name">BRAND OR ORGANISATION</label>
             <input
