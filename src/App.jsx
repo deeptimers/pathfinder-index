@@ -1083,11 +1083,6 @@ const CSS = `
   animation: pf-rise 260ms cubic-bezier(.2,.8,.2,1);
 }
 @keyframes pf-fade { from { opacity: 0; } to { opacity: 1; } }
-@media (min-width: 861px) {
-  .pf-card { flex-direction: row; max-width: 980px; }
-  .pf-card-media { width: 42%; min-width: 42%; aspect-ratio: auto; height: auto; max-height: none; min-height: 500px; }
-  .pf-card-body { flex: 1; min-width: 0; padding: 26px 26px 28px; }
-}
 @keyframes pf-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 .pf-card-media { position: relative; width: 100%; aspect-ratio: 4 / 5; height: auto; max-height: 56vh; flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
@@ -1241,4 +1236,11 @@ const CSS = `
 }
 .pf-card-media-empty { height: 96px; background: linear-gradient(180deg, #161616, #000); }
 .pf-detail-chapter { color: rgba(255,255,255,0.9); }
+
+/* desktop card: portrait image left, content right (must stay last in cascade) */
+@media (min-width: 861px) {
+  .pf-card { flex-direction: row; max-width: 980px; }
+  .pf-card-media { width: 42%; min-width: 42%; aspect-ratio: auto; height: auto; max-height: none; min-height: 500px; }
+  .pf-card-body { flex: 1; min-width: 0; padding: 26px 26px 28px; }
+}
 `;
