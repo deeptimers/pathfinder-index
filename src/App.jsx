@@ -498,6 +498,10 @@ function InfoCard({ ranked, idx, onClose, onStep }) {
     <div className="pf-card-backdrop" onClick={onClose}>
       <div
         className="pf-card"
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          el.style.setProperty("--pf-dim", Math.min(0.72, el.scrollTop / 340).toFixed(3));
+        }}
         role="dialog"
         aria-modal="true"
         aria-label={entry.name}
@@ -1088,6 +1092,7 @@ const CSS = `
 .pf-card-media { position: relative; width: 100%; aspect-ratio: 4 / 5; height: auto; max-height: 56vh; flex: none; background: #0B0B0B; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .pf-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pf-card-mediascrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55)); pointer-events: none; }
+.pf-card-media::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--pf-dim, 0); pointer-events: none; z-index: 2; }
 .pf-card-topmeta { position: absolute; top: 12px; left: 14px; right: 46px; z-index: 3; color: #fff; font-size: 10px; letter-spacing: 0.16em; line-height: 1.35; text-shadow: 0 1px 10px rgba(0,0,0,0.7); }
 .pf-card-sigilbox { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; color: #fff; background: #000; }
 .pf-card-x { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); }
@@ -1252,5 +1257,18 @@ const CSS = `
   .pf-card-note { margin-bottom: auto; padding-bottom: 28px; }
   .pf-card-body .pf-link { padding: 15px 16px; }
   .pf-detail-nav { margin-top: 12px; }
+}
+
+/* mobile card: pinned image, text rolls up over it, scrim deepens with scroll */
+@media (max-width: 860px) {
+  .pf-card { display: block; overflow-y: auto; height: calc(100% - 16px); scrollbar-width: none; }
+  .pf-card::-webkit-scrollbar { display: none; }
+  .pf-card-media { position: sticky; top: 0; z-index: 0; }
+  .pf-card-body {
+    position: relative; z-index: 2; overflow: visible;
+    margin-top: -64px; padding: 48px 20px 34px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0.88) 72px, #000 130px);
+  }
+  .pf-card-x { position: fixed; top: 18px; right: 18px; z-index: 60; }
 }
 `;
